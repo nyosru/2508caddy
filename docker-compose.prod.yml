@@ -5,10 +5,10 @@ networks:
 #    driver: external
     external: true
 
-#volumes:
+volumes:
 #  cron_volume:
 #    driver: local
-#  portainer_data:
+  portainer_data:
 
 services:
 
