@@ -1,0 +1,408 @@
+
+(2309livewire) {
+    php_fastcgi 2309livewire:9000
+    root * /home/2309livewire/public
+}
+
+#{
+# Использовать Let's Encrypt
+# acme_ca https://acme-v02.api.letsencrypt.org/directory
+#}
+
+(base) {
+    # Формируем самоподписной сертификат для работы https
+    # tls support@php-cat.com
+    #tls internal
+    file_server
+    encode gzip
+}
+
+(tls1) {
+    tls {
+        issuer acme {
+            dir https://acme-v02.api.letsencrypt.org/directory
+            email support@php-cat.com
+        }
+
+    }
+}
+
+(tls11) {
+    tls {
+        issuer acme {
+            dir https://acme-v02.api.letsencrypt.org/directory
+            email support@php-cat.com
+        }
+        # Отключение OCSP stapling
+        ocsp_stapling off
+    }
+}
+
+(tls_off) {
+    tls internal
+}
+
+(tls2) {
+    tls {
+        issuer acme {
+            dir https://acme.zerossl.com/v2/DV90
+            email 2@php-cat.com
+        }
+    }
+}
+
+# какая то ошибка с eab
+(tls_zero_support) {
+    tls {
+        issuer acme {
+            dir https://acme.zerossl.com/v2/DV90
+            email 1@php-cat.com
+            eab {
+                key_id "_JFx-xwZYuJX5eq2PLkOUg"
+                mac_key "Fg37_optaeGnL4Y7IuqsybuXC1skC0v78IyGl-1WPgOQCzMVpSbxy5tq7faVWBJf_O_qoMahjK5FQ5FHg-yCOA"
+            }
+        }
+    }
+}
+
+(base2) {
+    # Формируем самоподписной сертификат для работы https
+    #tls support@php-cat.com
+    #tls internal
+    file_server
+    encode gzip
+}
+
+
+
+
+
+
+
+
+
+#самыетюменскиеновости.рф {
+xn--80aeiaarcmpbmdnb6aghgm9nrc.xn--p1ai {
+    # redir https://stn.dev.php-cat.com{uri} 301
+    tls 1@php-cat.com
+    import base
+    import 2309livewire
+}
+#
+#приватизациягаража.рф {
+xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai {
+    #    redir https://privat.php-cat.com{uri} 301
+    tls 1@php-cat.com
+    import base
+    import 2309livewire
+}
+
+
+
+#bu72.ru, бу72.рф {
+#    tls 1@php-cat.com
+#    import base
+#    import 2309livewire
+#}
+
+
+#privat.php-cat.com, 1.php-cat.com {
+#    import tls1
+#    import base
+#    import 2309livewire
+#}
+
+# таймер.сергейсб.рф {
+xn--80aklmvh.xn--90adfbu3bff.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+
+#ar.php-cat.com {
+#    import base
+#    import 2309livewire
+#}
+
+
+#stn.dev.php-cat.com {
+#    import tls1
+#    import base
+#    import 2309livewire
+#}
+
+php-cat.com, php-cat.ru {
+    import tls1
+    import base
+    import 2309livewire
+}
+
+# скидки.сергейсб.рф
+# prf72.ru, skidki.dev.php-cat.com, xn--d1ahbfc2b.xn--90adfbu3bff.xn--p1ai {
+# kprf72.ru, скидки.сергейсб.рф {
+# kprf72.ru, xn--d1ahbfc2b.xn--90adfbu3bff.xn--p1ai {
+#    import tls1
+#    import base
+#    import 2309livewire
+#}
+
+#api-bitrix.php-cat.com, api-bitrix2.php-cat.com, api.bitrix.test.php-cat.com {
+#    import base
+#    php_fastcgi bitrix24_2407_01:9000
+#    root * /home/bitrix24_2407_01
+#}
+
+# складдокументов.рф
+xn--80aefaf0adenlhe2ayl.xn--p1ai {
+
+    import tls1
+    import base
+    import 2309livewire
+}
+
+# тюменскаяафиша.рф {
+#ттт72.рф, ttt72.ru, xn--80aaarrjmj0bg3a3c0dua.xn--p1ai {
+xn--80aaarrjmj0bg3a3c0dua.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+
+# вячеслав
+#, народноехозяйство.рус {
+xn--80aefekmxchcbdqwp7b3l.xn--p1acf {
+    import tls1
+    import base
+    php_fastcgi base12narek:9000
+    root * /home/base12narek/public
+}
+
+# цпусво.рф
+xn--b1aybijq.xn--p1ai, svo.php-cat.com {
+    import tls1
+    import base
+    #php_fastcgi base12narek:9000
+    php_fastcgi 2410svo:9000
+    #root * /home/base12narek/public
+    root * /home/2410svo/public
+}
+
+
+
+api.php-cat.com, api3.php-cat.com {
+    import tls1
+    import base
+    php_fastcgi site_api:9000
+    root * /home/site_api
+}
+
+upr.php-cat.com {
+    #import tls_off
+    import base
+    #import base
+    php_fastcgi upr_serv:9000
+    root * /home/upr_serv/public
+}
+
+
+#vue3.php-cat.com {
+#    import tls1
+#    import base
+#    php_fastcgi base17:9000
+#    root * /home/base17/public
+#}
+
+xn--f1aeeb2as.xn--90adfbu3bff.xn--p1ai, domainwaiter.com {
+    import tls1
+    import base
+    php_fastcgi 2308beget:9000
+    root * /home/2308beget/public
+}
+
+# юраманник.рф {
+xn--80aayihhat9j.xn--p1ai {
+    tls 1@php-cat.com
+    import base
+    import 2309livewire
+}
+
+#управлятор.рф, vk.files.php-cat.com {
+#xn--80ae1ambgeod9j.xn--p1ai, vk.files.php-cat.com {
+#    import tls1
+#    import base
+#    import 2309livewire
+#}
+
+#as.php-cat.com {
+#    import tls1
+#    import base
+#    import 2309livewire
+#}
+
+# атрактор.рф {
+#сноукайтинг.рф, продукты72.рф, земельныйкадастр.рф {
+#    import tls1
+#    import base
+#    import 2309livewire
+#}
+
+#dev.47.avto-as.ru {
+#    import tls1
+#    import base
+#    php_fastcgi 2312auto_as:9000
+#    root * /home_as/2312auto_as/public
+#}
+#
+#avs.php-cat.com, 47.avto-as.ru {
+#    import tls1
+#    import base
+#    php_fastcgi 2312auto_as_prod:9000
+#    root * /home_as/2312auto_as_prod/public
+#}
+#
+#avs.didrive.php-cat.com, d47.avto-as.ru {
+#    import tls1
+#    import base
+#    php_fastcgi 2312didrive_auto:9000
+#    root * /home_as/2312auto_as_didrive/public
+#}
+
+#api74.php-cat.com {
+#    import tls1
+#    import base
+#    php_fastcgi api_php74:9000
+#    root * /home_as/base-php7-api/public
+#}
+
+test2401laravel-vitrin.php-cat.com {
+    import tls_off
+    import base
+    php_fastcgi 2401test:9000
+    root * /home/2401test_laravel/public
+}
+
+# сергейсб.рф, kprf72.ru, кпрф72.рф {
+#сергейсб.рф {
+#    import tls1
+#    import base
+#    import 2309livewire
+#}
+
+
+vt.php-cat.ru {
+    import base
+    tls 1@php-cat.com
+    #    php_fastcgi vt2412:9000
+    php_fastcgi vt2:9000
+    root * /home/vt2412/public
+    #reverse_proxy / 2412job_site1:9000
+}
+
+
+
+#uber
+u.php-cat.com {
+    #import tls_off
+    import tls1
+    import base
+    #import base
+    php_fastcgi uber:9000
+    root * /home_uber/uber-tele/public
+}
+
+
+
+
+
+#процессмастер.рф, process.php-cat.com {
+#процессмастер.рф, управлятор.рф
+xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-cat.ru {
+
+    request_body {
+        max_size 100MB
+    }
+
+    import tls1
+    import base
+    php_fastcgi 2503master:9000
+    root * /home/2503master/public
+
+    @showtext path /phpcat
+    respond @showtext "домены xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-cat.ru "
+}
+
+#process.php-cat.com {
+#    import tls1
+#    import base
+#    php_fastcgi proc_master:9000
+#    root * /home/2503master/public
+#    @showtext path /info
+#    respond @showtext "домен траля ля ляы"
+#}
+
+# dev
+# время для победы
+time.dev.php-cat.com {
+    import base
+    php_fastcgi 2505timefv:9000
+    root * /home/2505timefv/public
+}
+
+# prod
+# времяпобед.рус
+xn--90abhcb4bohg6m.xn--p1acf, time.php-cat.com {
+    import base
+    php_fastcgi 2505timefv_prod:9000
+    root * /home/2505timefv_prod/public
+}
+
+
+#uber
+test-sensor.php-cat.com {
+    #import tls_off
+    tls 1@php-cat.com
+    import base
+    #import base
+    php_fastcgi 2503sensor:9000
+    root * /home/2503sensor/public
+}
+
+testapi2503.php-cat.com {
+    import tls1
+    import base
+    php_fastcgi 2503testapi:9000
+    root * /home/2503testapi/public
+}
+
+
+
+test2506.php-cat.com {
+    import tls1
+    import base
+    php_fastcgi 2506test:9000
+    root * /home/2506test_resource_api/public/
+}
+
+
+yii2.php-cat.com {
+    import tls1
+    import base
+    php_fastcgi 2507yii2_test:9000
+    root * /home/2507yii2_test/web/
+}
+
+
+:433, :80 {
+    import tls1
+    # tls support@php-cat.com
+    import base
+    import 2309livewire
+
+    # Этот блок выглядит неправильно, возможно, его следует удалить или исправить
+    # *.ru, *.xn--p1ai, *.com, *.info, *.local, :433, :80 {
+    # :433, :80 {
+    # *.ru, *.xn--p1ai, *.com, *.info, :433 {
+    # :433 {
+
+    #*.ru, *.xn--p1ai, *.com, *.info {
+}

@@ -1,0 +1,41 @@
+(base) {
+	tls internal
+	file_server
+	encode gzip
+}
+
+time.local {
+	import base
+	root * /home/2505timefv/public
+	php_fastcgi 2505timefv:9000
+}
+
+master.local {
+	import base
+	root * /home/2503master/public
+	php_fastcgi 2503master:9000
+}
+
+yii2.local {
+	import base
+	root * /home/2507yii2_test/web
+	php_fastcgi 2507yii2_test:9000
+}
+
+livewire.local {
+	import base
+	root * /home/2309livewire/public
+	php_fastcgi 2309livewire:9000
+}
+
+cup.local {
+	import base
+	root * /home/2308beget/public
+	php_fastcgi 2308beget:9000
+}
+
+:80, :433 {
+	import base
+	php_fastcgi 2309livewire:9000
+	root * /home/2309livewire/public
+}
