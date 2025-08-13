@@ -10,6 +10,52 @@ create_web_laravel:
 	fi
 
 
+
+
+
+
+prod:
+	#@echo "+++0 удалить сеть laravel"
+	#make remove-laravel-network
+	@echo "+++ prod environment started"
+	make create_web_laravel
+	@echo "+++2 prod environment started"
+	cp caddy/prod.Caddyfile caddy/Caddyfile
+	cp docker-compose.prod.yml docker-compose.yml
+	docker-compose down --rmi all -v
+	docker-compose up -d --build
+	make caddy_refresh_cfd_prod
+	#docker system prune --force
+
+
+caddy_refresh_cfd_prod:
+	cp caddy/prod.Caddyfile caddy/Caddyfile
+	docker exec caddy caddy fmt --overwrite /etc/caddy/Caddyfile
+	docker exec caddy caddy reload --config /etc/caddy/Caddyfile
+
+
+
+
+
+
+dev:
+	@echo "Development environment started"
+	make create_web_laravel
+	cp caddy/dev.Caddyfile caddy/Caddyfile
+	cp docker-compose.local.yml docker-compose.yml
+	docker-compose up -d --remove-orphans
+	make caddy_refresh_cfd
+
+caddy_refresh_cfd:
+	cp caddy/dev.Caddyfile caddy/Caddyfile
+	docker exec caddy caddy fmt --overwrite /etc/caddy/Caddyfile
+	docker exec caddy caddy reload --config /etc/caddy/Caddyfile
+
+
+
+
+
+
 #docker network create laravel
 #docker network create --driver bridge laravel
 
@@ -54,23 +100,7 @@ create_web_laravel:
 		echo "Docker network laravel already exists"; \
 	fi
 
-dev:
-	@echo "Development environment started"
-	make create_web_laravel
-	#docker-compose down
-	#docker network rm laravel
-	cp caddy/dev.Caddyfile caddy/Caddyfile
-	#cp caddy/dev.Caddyfile caddy2/Caddyfile
-	cp docker-compose.local.yml docker-compose.yml
-	docker-compose up -d --remove-orphans
-	# использовать другой файл докер композ
-	#docker-compose -f ./docker-compose.local.yml up -d --remove-orphans
-	#docker-compose up -d --force-recreate web_scraper --remove-orphans
-	#make start_2309livewire
-	#make start_2410svo_dev
-	#make start_base12narek_dev
 
-	make caddy_refresh_cfd
 
 dev2:
 	@echo "Development environment started"
@@ -110,23 +140,6 @@ devv:
 	cp docker-compose.local.v.yml docker-compose.yml
 	docker-compose up -d --remove-orphans
 	#make caddy_refresh_cfd
-
-
-prod:
-	#@echo "+++0 удалить сеть laravel"
-	#make remove-laravel-network
-	@echo "+++ prod environment started"
-	make create_web_laravel
-	@echo "+++2 prod environment started"
-	cp caddy/prod.Caddyfile caddy/Caddyfile
-	cp docker-compose.prod.yml docker-compose.yml
-
-	docker-compose down --rmi all -v
-
-	docker-compose up -d --build
-
-	make caddy_refresh_cfd_prod
-	#docker system prune --force
 
 
 
@@ -355,17 +368,6 @@ start_avtoas_didrive_prod:
 	#docker exec 2312didrive_auto_prod npm run prod
 	docker exec 2312didrive_auto_prod php artisan storage:link
 
-
-caddy_refresh_cfd_prod:
-	cp caddy/prod.Caddyfile caddy/Caddyfile
-	docker exec caddy caddy fmt --overwrite /etc/caddy/Caddyfile
-	docker exec caddy caddy reload --config /etc/caddy/Caddyfile
-
-
-caddy_refresh_cfd:
-	cp caddy/dev.Caddyfile caddy/Caddyfile
-	docker exec caddy caddy fmt --overwrite /etc/caddy/Caddyfile
-	docker exec caddy caddy reload --config /etc/caddy/Caddyfile
 
 
 start0:
