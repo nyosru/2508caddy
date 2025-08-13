@@ -83,9 +83,9 @@
 
 # prod
 # времяпобед.рус
-# xn--90abhcb4bohg6m.xn--p1acf, time.php-cat.com {
-# reverse_proxy some_laravel_service:9000
-времяпобед.рус, time.php-cat.com {
+xn--90abhcb4bohg6m.xn--p1acf, time.php-cat.com {
+    # reverse_proxy some_laravel_service:9000
+    # времяпобед.рус, time.php-cat.com {
     import base
     php_fastcgi 2505timefv_prod:9000
     root * /home/2505timefv_prod/public
