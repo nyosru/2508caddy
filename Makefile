@@ -15,6 +15,8 @@ create_web_laravel:
 
 
 prod:
+	git fetch origin
+	git reset --hard origin/main
 	#@echo "+++0 удалить сеть laravel"
 	#make remove-laravel-network
 	@echo "+++ prod environment started"
