@@ -81,6 +81,15 @@
 
 
 
+
+# время побед
+#дев
+time.dev.php-cat.com {
+    import base
+    php_fastcgi 2505timefv:9000
+    root * /home/2505timefv/public
+}
+
 # prod
 # reverse_proxy some_laravel_service:9000
 # времяпобед.рус, time.php-cat.com {
@@ -89,7 +98,7 @@
 # времяпобед.рус
 xn--90abhcb4bohg6m.xn--p1acf, time.php-cat.com {
     import base
-    php_fastcgi 2505timefv_prod:9000
+    php_fastcgi 2505timefv_prod2:9000
     root * /home/2505timefv_prod/public
 }
 
@@ -368,14 +377,6 @@ xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-c
 #    @showtext path /info
 #    respond @showtext "домен траля ля ляы"
 #}
-
-# dev
-# время для победы
-time.dev.php-cat.com {
-    import base
-    php_fastcgi 2505timefv:9000
-    root * /home/2505timefv/public
-}
 
 
 #uber
