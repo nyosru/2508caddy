@@ -12,6 +12,28 @@ create_web_laravel:
 
 
 
+caddy_refresh_cfd_prod:
+	cp caddy/prod.Caddyfile caddy/Caddyfile
+	docker exec caddy caddy fmt --overwrite /etc/caddy/Caddyfile
+	docker exec caddy caddy reload --config /etc/caddy/Caddyfile
+
+
+
+
+prod_deploy:
+	git fetch origin
+	git reset --hard origin/main
+	#@echo "+++0 удалить сеть laravel"
+	#make remove-laravel-network
+	@echo "+++ prod environment started"
+	make create_web_laravel
+	@echo "+++2 prod environment started"
+#	cp caddy/prod.Caddyfile caddy/Caddyfile
+	cp docker-compose.prod.yml docker-compose.yml
+	docker-compose down --rmi all -v
+	docker-compose up -d --build
+	#make caddy_refresh_cfd_prod
+	#docker system prune --force
 
 
 prod:
@@ -22,18 +44,12 @@ prod:
 	@echo "+++ prod environment started"
 	make create_web_laravel
 	@echo "+++2 prod environment started"
-	cp caddy/prod.Caddyfile caddy/Caddyfile
+#	cp caddy/prod.Caddyfile caddy/Caddyfile
 	cp docker-compose.prod.yml docker-compose.yml
 	docker-compose down --rmi all -v
 	docker-compose up -d --build
 	make caddy_refresh_cfd_prod
 	#docker system prune --force
-
-
-caddy_refresh_cfd_prod:
-	cp caddy/prod.Caddyfile caddy/Caddyfile
-	docker exec caddy caddy fmt --overwrite /etc/caddy/Caddyfile
-	docker exec caddy caddy reload --config /etc/caddy/Caddyfile
 
 
 

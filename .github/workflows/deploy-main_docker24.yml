@@ -21,23 +21,23 @@ jobs:
           to: 360209578, phpcat
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            🚀 Начинаем деплой ${{ github.repository }}
+            🚀🚀🚀 Начинаем деплой ${{ github.repository }}
             👨🏻‍💻 ${{ github.actor }} (${{ github.run_id }})
             📝 ${{ github.event.head_commit.message }}
 
-  check_commit:
-    runs-on: ubuntu-latest
-    outputs:
-      start_setup: ${{ steps.check.outputs.start_setup }}
-    steps:
-      - name: Check commit message for start_setup
-        id: check
-        run: |
-          if [[ "${{ github.event.head_commit.message }}" == *"[start_setup+"* ]]; then
-            echo "start_setup=true" >> $GITHUB_OUTPUT
-          else
-            echo "start_setup=false" >> $GITHUB_OUTPUT
-          fi
+#  check_commit:
+#    runs-on: ubuntu-latest
+#    outputs:
+#      start_setup: ${{ steps.check.outputs.start_setup }}
+#    steps:
+#      - name: Check commit message for start_setup
+#        id: check
+#        run: |
+#          if [[ "${{ github.event.head_commit.message }}" == *"[start_setup+"* ]]; then
+#            echo "start_setup=true" >> $GITHUB_OUTPUT
+#          else
+#            echo "start_setup=false" >> $GITHUB_OUTPUT
+#          fi
 
   deploy:
     runs-on: ubuntu-latest
@@ -57,9 +57,12 @@ jobs:
           script: |
             set -e  # Выход при ошибке
             cd ${{ env.DIR }}
-            git fetch --all
-            git reset --hard ${{ env.GIT_BRANCH }}
+            make prod_deploy
+#            git fetch --all
+#            git reset --hard ${{ env.GIT_BRANCH }}
             echo "✅ Код успешно обновлен"
+#            make caddy_refresh_cfd_prod
+#            echo "✅✅ Конфиг перезагружен"
 
 #  update_laravel:
 #    runs-on: ubuntu-latest
@@ -114,7 +117,7 @@ jobs:
           to: 360209578, phpcat
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ✅ Успешный деплой ${{ github.repository }}
+            🍀🍀🍀 Успешный деплой ${{ github.repository }}
             👨🏻‍💻 ${{ github.actor }} > ${{ github.run_id }}
             📝 ${{ github.event.head_commit.message }}
             🎉 Все задачи выполнены!
