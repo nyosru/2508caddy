@@ -1,112 +1,158 @@
-name: Deploy bu docker
+name: Deploy to VPS
+
 
 env:
-  VPS_IP: 91.218.230.97
+  VPS_HOST: 91.218.230.97
   VPS_USERNAME: root
   DIR: /home2/2508caddy
   GIT_BRANCH: origin/main
+  GITHUB_USERNAME: nyosru
+  GIT_REPO: 2508caddy.git
+  DOCKER_CONTAINER: caddy
 
 on:
   push:
     branches:
-      - main
+      - main  # Замените на нужную ветку
 
 jobs:
 
+  #в комменте
+  #  [start_setup+ для стартовой настройки прав досутпа и ссылок storage
+
   deploy:
     runs-on: ubuntu-latest
-#    outputs:
-#      rebuild_needed: ${{ steps.check_commit.outputs.rebuild_needed }}
-#      rebuild2503master: ${{ steps.check_commit.outputs.rebuild2503master }}
-#      rebuildCaddy: ${{ steps.check_commit.outputs.rebuildCaddy }}
 
     steps:
-#      - name: Check commit message
-#        id: check_commit
-#        run: |
-#          check_rebuild() {
-#            [[ "${{ github.event.head_commit.message }}" == *"[$1+"* ]] && echo "true" || echo "false"
-#          }
-#
-#          echo "rebuild_needed=$(check_rebuild 'rebuild')" >> $GITHUB_OUTPUT
-#          echo "rebuild2503master=$(check_rebuild 'rebuild2503master')" >> $GITHUB_OUTPUT
-#          echo "rebuildCaddy=$(check_rebuild 'rebuildCaddy')" >> $GITHUB_OUTPUT
 
-      - name: "Refresh git & base config"
-        if: ${{ always() }}
+
+      - name: "refresh git & restart docker"
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ env.VPS_IP }}
+          host: ${{ env.VPS_HOST }}
           username: ${{ env.VPS_USERNAME }}
-          key: ${{ secrets.DEPLOY_KEY_DOCKER24 }}
+          #key: ${{ secrets.DEPLOY_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ env.DIR }}
             git fetch --all
             git reset --hard ${{ env.GIT_BRANCH }}
 
-  deploy_composer:
+  up:
     runs-on: ubuntu-latest
     needs: deploy
+    outputs:
+      start_setup: ${{ steps.check_commit.outputs.start_setup }}
+    #      rebuild2503master: ${{ steps.check_commit.outputs.rebuild2503master }}
+    #      rebuildCaddy: ${{ steps.check_commit.outputs.rebuildCaddy }}
     steps:
-      - name: Conditional steps
+
+      - name: Check commit message
+        id: check_commit
+        run: |
+          check_rebuild() {
+            [[ "${{ github.event.head_commit.message }}" == *"[$1+"* ]] && echo "true" || echo "false"
+          }
+
+          echo "start_setup=$(check_rebuild 'start_setup')" >> $GITHUB_OUTPUT
+      #          echo "rebuild2503master=$(check_rebuild 'rebuild2503master')" >> $GITHUB_OUTPUT
+      #          echo "rebuildCaddy=$(check_rebuild 'rebuildCaddy')" >> $GITHUB_OUTPUT
+
+      - name: "update-laravel"
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ env.VPS_IP }}
+          host: ${{ env.VPS_HOST }}
           username: ${{ env.VPS_USERNAME }}
-          key: ${{ secrets.DEPLOY_KEY_DOCKER24 }}
+          #key: ${{ secrets.DEPLOY_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ${{ env.DIR }}
-            make caddy_refresh_cfd_prod
+            docker exec ${{ env.DOCKER_CONTAINER }} composer i --no-dev --optimize-autoloader
+            docker exec ${{ env.DOCKER_CONTAINER }} php artisan migrate
+            docker exec ${{ env.DOCKER_CONTAINER }} npm i && npm run build
 
-# docker-compose up --build -d
+            echo "start_setup - ${{ needs.deploy.outputs.start_setup }}"
 
-#            echo ${{needs.deploy.outputs.rebuild_needed || 'x' }}
-#            echo ${{needs.deploy.outputs.rebuild2503master || 'x' }}
-#            echo ${{needs.deploy.outputs.rebuildCaddy || 'x' }}
-#
-#            if [[ needs.deploy.outputs.rebuild2503master == 'true' ]]; then
-#              echo "Rebuilding 2503master"
-#            else
-#              echo "Rebuilding 2503master -"
-#            fi
-#
-#
-#            ${{ needs.deploy.outputs.rebuild2503master == 'true' && 'echo "Rebuilding rebuild2503master" && make d-rebuild-2503master' || 'echo "Skipping 2503master rebuild"' }}
-#
-#            if [ "${{ needs.deploy.outputs.rebuild_needed }}" == 'true' ]; then
-#              echo "Rebuilding"
-#              make prod
-#            else
-#              echo "Rebuilding -"
-#            fi
-#
-#            #$#{{ needs.deploy.outputs.rebuild_needed == 'true' && 'echo "Full rebuild started" && make prod' || 'echo "Skipping full rebuild"' }}
-#
-#            if [ "${{ needs.deploy.outputs.rebuildCaddy }}" == 'true' ]; then
-#              echo "rebuildCaddy +"
-#              make caddy_refresh_cfd_prod
-#            else
-#              echo "rebuildCaddy -"
-#            fi
-#
-#            #$#{{ needs.deploy.outputs.rebuildCaddy == 'true' && 'echo "Updating Caddy config" && docker-compose up -d caddy && docker cp ./caddy/Caddyfile caddy:/etc/caddy/Caddyfile && docker exec caddy caddy reload --config /etc/caddy/Caddyfile' || 'echo "Skipping Caddy update"' }}
+            if [ "${{ needs.deploy.outputs.start_setup }}" == 'true' ]; then
+              docker exec ${{ env.DOCKER_CONTAINER }} chmod -R 775 /home/2503master/storage
+              docker exec ${{ env.DOCKER_CONTAINER }} chown -R www-data:www-data /home/2503master/storage
+              docker exec ${{ env.DOCKER_CONTAINER }} php artisan storage:link
+            fi
 
-  sms_end:
+
+
+
+  sms_start:
     runs-on: ubuntu-latest
-    needs: [deploy_composer]
     steps:
       - name: send telega
         uses: appleboy/telegram-action@master
         with:
+          # to: ${{ secrets.TELEGRAM_TO }}
           to: 360209578, phpcat,
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            🍀🍀🍀 Deployment Report
-            Repo: ${{ github.repository }}
-            Commit: ${{ github.event.head_commit.message || '-' }}
-            By: ${{ github.actor }} (Run ID: ${{ github.run_id }})
-            
-#            🔧 Rebuild Needed: ${{ needs.deploy.outputs.rebuild_needed || '--' }}
-#            🖥️ 2503master Rebuild: ${{ needs.deploy.outputs.rebuild2503master || '--' }}
-#            🔐 Caddy Update: ${{ needs.deploy.outputs.rebuildCaddy || '--' }}
-#            if [ "${{ needs.deploy.outputs.rebuildCaddy }}" == 'true' ]; then rebuildCaddy+  fi
+            🐥🐥🐥 ${{ github.repository }} 👨🏻‍💻 ${{github.actor}} (${{ github.run_id }})
+            ${{ github.event_name }} > ${{ github.event.head_commit.message }}
+
+
+  sms_end00:
+    runs-on: ubuntu-latest
+    # needs: [deploy_composer, deploy_npm]
+    needs: up
+    steps:
+      - name: send telega
+        uses: appleboy/telegram-action@master
+        with:
+          # to: ${{ secrets.TELEGRAM_TO }}
+          to: 360209578, phpcat,
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            🍀🍀🍀 ${{ github.repository }} 👨🏻‍💻 ${{github.actor}} > ${{ github.run_id }}
+            ${{ github.event_name }} > ${{ github.event.head_commit.message }}
+            завершили норм
+
+
+#
+#      - name: Checkout Repository
+#        uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Debug SSH
+#        run: |
+#          echo "Checking SSH connection..."
+#          mkdir -p ~/.ssh
+#          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/proc-master_key
+#          echo "" > ~/.ssh/config
+#          chmod 600 ~/.ssh/proc-master_key
+#          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+#          ssh -i ~/.ssh/proc-master_key -o StrictHostKeyChecking=no root@${{ env.VPS_HOST }} "echo 'SSH to VPS successful'"
+#
+#
+#      - name: Set Correct Git Remote URL
+#        run: |
+#          git remote set-url origin git@github.com:nyosru/proc-master.git
+#
+#      - name: Deploy Code to VPS
+#        run: |
+#          ssh -i ~/.ssh/proc-master_key -o StrictHostKeyChecking=no root@${{ env.VPS_HOST }} << 'EOF'
+#            echo "Changing directory to /home/proc-master..."
+#            cd ${{ env.DIR }} || exit 1
+#
+#            echo "Checking current Git remote..."
+#            git remote -v
+#
+#            echo "Checking SSH Access to GitHub..."
+#            ssh -T git@github.com
+#
+#            echo "Setting remote to SSH..."
+#            git remote set-url origin git@github.com:${{ env.GITHUB_USERNAME }}/${{ env.GIT_REPO }}
+#
+#            echo "Fetching latest changes..."
+#            git fetch --all
+#
+#            echo "Resetting to latest commit..."
+#            git reset --hard origin/main
+#
+#            echo "Deployment complete!"
+#          EOF
