@@ -39,6 +39,8 @@ services:
       - './caddy/data-caddy:/data/'
 #      - 'caddy_logs:/var/log/caddy'
 
+      - '/home/test-vue-mobile-2508/dist:/home/vue-app-prod'  # для прямого обслуживания
+
       # test api 2506
       - '${FOLDER_2506TESTAPI}:${FOLDER_2506TESTAPI_SERV}'
       #proc-master
