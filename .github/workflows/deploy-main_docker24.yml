@@ -57,12 +57,14 @@ jobs:
           script: |
             set -e  # Выход при ошибке
             cd ${{ env.DIR }}
-            make prod_deploy
-#            git fetch --all
-#            git reset --hard ${{ env.GIT_BRANCH }}
+            git fetch --all
+            git reset --hard ${{ env.GIT_BRANCH }}
             echo "✅ Код успешно обновлен"
-#            make caddy_refresh_cfd_prod
-#            echo "✅✅ Конфиг перезагружен"
+            cp docker-compose.prod.yml docker-compose.yml
+            cp caddy/prod.Caddyfile caddy/Caddyfile
+            docker-compose down --rmi all -v
+            docker-compose up -d --build
+            echo "✅✅ контейнер перезагружен"
 
 #  update_laravel:
 #    runs-on: ubuntu-latest
