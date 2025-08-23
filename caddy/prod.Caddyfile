@@ -83,7 +83,8 @@
 
 
 vue-1.php-cat.com {
-    tls 1@php-cat.com
+    #tls 1@php-cat.com
+    import tls_off
     import base
     root * /home/test-vue-mobile-2508/dist
     try_files {path} {path}/ /index.html
