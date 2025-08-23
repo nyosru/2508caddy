@@ -82,6 +82,13 @@
 
 
 
+vue-1.php-cat.com {
+    import base
+    root * /home/test-vue-mobile-2508/dist
+    try_files {path} {path}/ /index.html
+}
+
+
 # время побед
 #дев
 time.dev.php-cat.com {
