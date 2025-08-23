@@ -1,158 +1,120 @@
 name: Deploy to VPS
 
-
 env:
   VPS_HOST: 91.218.230.97
   VPS_USERNAME: root
   DIR: /home2/2508caddy
   GIT_BRANCH: origin/main
-  GITHUB_USERNAME: nyosru
-  GIT_REPO: 2508caddy.git
   DOCKER_CONTAINER: caddy
 
 on:
   push:
-    branches:
-      - main  # Замените на нужную ветку
+    branches: [main]
 
 jobs:
-
-  #в комменте
-  #  [start_setup+ для стартовой настройки прав досутпа и ссылок storage
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-
-
-      - name: "refresh git & restart docker"
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ env.VPS_HOST }}
-          username: ${{ env.VPS_USERNAME }}
-          #key: ${{ secrets.DEPLOY_KEY }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ${{ env.DIR }}
-            git fetch --all
-            git reset --hard ${{ env.GIT_BRANCH }}
-
-  up:
-    runs-on: ubuntu-latest
-    needs: deploy
-    outputs:
-      start_setup: ${{ steps.check_commit.outputs.start_setup }}
-    #      rebuild2503master: ${{ steps.check_commit.outputs.rebuild2503master }}
-    #      rebuildCaddy: ${{ steps.check_commit.outputs.rebuildCaddy }}
-    steps:
-
-      - name: Check commit message
-        id: check_commit
-        run: |
-          check_rebuild() {
-            [[ "${{ github.event.head_commit.message }}" == *"[$1+"* ]] && echo "true" || echo "false"
-          }
-
-          echo "start_setup=$(check_rebuild 'start_setup')" >> $GITHUB_OUTPUT
-      #          echo "rebuild2503master=$(check_rebuild 'rebuild2503master')" >> $GITHUB_OUTPUT
-      #          echo "rebuildCaddy=$(check_rebuild 'rebuildCaddy')" >> $GITHUB_OUTPUT
-
-      - name: "update-laravel"
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ env.VPS_HOST }}
-          username: ${{ env.VPS_USERNAME }}
-          #key: ${{ secrets.DEPLOY_KEY }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            docker exec ${{ env.DOCKER_CONTAINER }} composer i --no-dev --optimize-autoloader
-            docker exec ${{ env.DOCKER_CONTAINER }} php artisan migrate
-            docker exec ${{ env.DOCKER_CONTAINER }} npm i && npm run build
-
-            echo "start_setup - ${{ needs.deploy.outputs.start_setup }}"
-
-            if [ "${{ needs.deploy.outputs.start_setup }}" == 'true' ]; then
-              docker exec ${{ env.DOCKER_CONTAINER }} chmod -R 775 /home/2503master/storage
-              docker exec ${{ env.DOCKER_CONTAINER }} chown -R www-data:www-data /home/2503master/storage
-              docker exec ${{ env.DOCKER_CONTAINER }} php artisan storage:link
-            fi
-
-
-
-
   sms_start:
     runs-on: ubuntu-latest
     steps:
-      - name: send telega
+      - name: Send deployment start notification
         uses: appleboy/telegram-action@master
         with:
-          # to: ${{ secrets.TELEGRAM_TO }}
-          to: 360209578, phpcat,
+          to: 360209578, phpcat
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            🐥🐥🐥 ${{ github.repository }} 👨🏻‍💻 ${{github.actor}} (${{ github.run_id }})
-            ${{ github.event_name }} > ${{ github.event.head_commit.message }}
+            🚀 Начинаем деплой ${{ github.repository }}
+            👨🏻‍💻 ${{ github.actor }} (${{ github.run_id }})
+            📝 ${{ github.event.head_commit.message }}
 
-
-  sms_end00:
+  check_commit:
     runs-on: ubuntu-latest
-    # needs: [deploy_composer, deploy_npm]
-    needs: up
+    outputs:
+      start_setup: ${{ steps.check.outputs.start_setup }}
     steps:
-      - name: send telega
+      - name: Check commit message for start_setup
+        id: check
+        run: |
+          if [[ "${{ github.event.head_commit.message }}" == *"[start_setup+"* ]]; then
+            echo "start_setup=true" >> $GITHUB_OUTPUT
+          else
+            echo "start_setup=false" >> $GITHUB_OUTPUT
+          fi
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [sms_start, check_commit]
+    steps:
+      - name: Setup SSH known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ env.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy code to VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.VPS_HOST }}
+          username: ${{ env.VPS_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e  # Выход при ошибке
+            cd ${{ env.DIR }}
+            git fetch --all
+            git reset --hard ${{ env.GIT_BRANCH }}
+            echo "✅ Код успешно обновлен"
+
+  update_laravel:
+    runs-on: ubuntu-latest
+    needs: [check_commit, deploy]
+    steps:
+      - name: Setup SSH known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ env.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Update Laravel application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.VPS_HOST }}
+          username: ${{ env.VPS_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            cd ${{ env.DIR }}
+            
+            # Обновление зависимостей
+            docker exec ${{ env.DOCKER_CONTAINER }} composer install --no-dev --optimize-autoloader
+            docker exec ${{ env.DOCKER_CONTAINER }} npm install
+            docker exec ${{ env.DOCKER_CONTAINER }} npm run build
+            
+            # Миграции
+            docker exec ${{ env.DOCKER_CONTAINER }} php artisan migrate --force
+            
+            # Очистка кеша
+            docker exec ${{ env.DOCKER_CONTAINER }} php artisan optimize:clear
+            docker exec ${{ env.DOCKER_CONTAINER }} php artisan optimize
+            
+            # Начальная настройка (если нужно)
+            if [ "${{ needs.check_commit.outputs.start_setup }}" = 'true' ]; then
+              echo "🔧 Выполняем начальную настройку..."
+              docker exec ${{ env.DOCKER_CONTAINER }} chmod -R 775 storage
+              docker exec ${{ env.DOCKER_CONTAINER }} chown -R www-data:www-data storage
+              docker exec ${{ env.DOCKER_CONTAINER }} php artisan storage:link
+            else
+              echo "⏩ Пропускаем начальную настройку"
+            fi
+            
+            echo "✅ Laravel приложение обновлено"
+
+  sms_end:
+    runs-on: ubuntu-latest
+    needs: update_laravel
+    steps:
+      - name: Send deployment success notification
         uses: appleboy/telegram-action@master
         with:
-          # to: ${{ secrets.TELEGRAM_TO }}
-          to: 360209578, phpcat,
+          to: 360209578, phpcat
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            🍀🍀🍀 ${{ github.repository }} 👨🏻‍💻 ${{github.actor}} > ${{ github.run_id }}
-            ${{ github.event_name }} > ${{ github.event.head_commit.message }}
-            завершили норм
-
-
-#
-#      - name: Checkout Repository
-#        uses: actions/checkout@v4
-#        with:
-#          fetch-depth: 0
-#
-#      - name: Debug SSH
-#        run: |
-#          echo "Checking SSH connection..."
-#          mkdir -p ~/.ssh
-#          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/proc-master_key
-#          echo "" > ~/.ssh/config
-#          chmod 600 ~/.ssh/proc-master_key
-#          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-#          ssh -i ~/.ssh/proc-master_key -o StrictHostKeyChecking=no root@${{ env.VPS_HOST }} "echo 'SSH to VPS successful'"
-#
-#
-#      - name: Set Correct Git Remote URL
-#        run: |
-#          git remote set-url origin git@github.com:nyosru/proc-master.git
-#
-#      - name: Deploy Code to VPS
-#        run: |
-#          ssh -i ~/.ssh/proc-master_key -o StrictHostKeyChecking=no root@${{ env.VPS_HOST }} << 'EOF'
-#            echo "Changing directory to /home/proc-master..."
-#            cd ${{ env.DIR }} || exit 1
-#
-#            echo "Checking current Git remote..."
-#            git remote -v
-#
-#            echo "Checking SSH Access to GitHub..."
-#            ssh -T git@github.com
-#
-#            echo "Setting remote to SSH..."
-#            git remote set-url origin git@github.com:${{ env.GITHUB_USERNAME }}/${{ env.GIT_REPO }}
-#
-#            echo "Fetching latest changes..."
-#            git fetch --all
-#
-#            echo "Resetting to latest commit..."
-#            git reset --hard origin/main
-#
-#            echo "Deployment complete!"
-#          EOF
+            ✅ Успешный деплой ${{ github.repository }}
+            👨🏻‍💻 ${{ github.actor }} > ${{ github.run_id }}
+            📝 ${{ github.event.head_commit.message }}
+            🎉 Все задачи выполнены!
