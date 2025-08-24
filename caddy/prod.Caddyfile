@@ -4,11 +4,6 @@
     root * /home/2309livewire/public
 }
 
-#{
-# Использовать Let's Encrypt
-# acme_ca https://acme-v02.api.letsencrypt.org/directory
-#}
-
 (base) {
     # Формируем самоподписной сертификат для работы https
     # tls support@php-cat.com
@@ -193,21 +188,6 @@ php-cat.com, php-cat.ru {
     import 2309livewire
 }
 
-# скидки.сергейсб.рф
-# prf72.ru, skidki.dev.php-cat.com, xn--d1ahbfc2b.xn--90adfbu3bff.xn--p1ai {
-# kprf72.ru, скидки.сергейсб.рф {
-# kprf72.ru, xn--d1ahbfc2b.xn--90adfbu3bff.xn--p1ai {
-#    import tls1
-#    import base
-#    import 2309livewire
-#}
-
-#api-bitrix.php-cat.com, api-bitrix2.php-cat.com, api.bitrix.test.php-cat.com {
-#    import base
-#    php_fastcgi bitrix24_2407_01:9000
-#    root * /home/bitrix24_2407_01
-#}
-
 # складдокументов.рф
 xn--80aefaf0adenlhe2ayl.xn--p1ai {
 
@@ -362,11 +342,15 @@ yii2.php-cat.com {
     root * /home/2507yii2_test/web/
 }
 
+# Catch-all для HTTP (порт 80)
+:80 {
+    import base
+    import 2309livewire
+}
 
-:433, :80 {
-    import tls_off
-    # import tls1
-    # tls support@php-cat.com
+# Catch-all для HTTPS (порт 443)
+:443 {
+    import tls1
     import base
     import 2309livewire
 }
