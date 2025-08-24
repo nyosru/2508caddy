@@ -364,7 +364,8 @@ yii2.php-cat.com {
 
 
 :433, :80 {
-    import tls1
+    import tls_off
+    # import tls1
     # tls support@php-cat.com
     import base
     import 2309livewire
