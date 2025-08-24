@@ -261,12 +261,14 @@ upr.php-cat.com {
 }
 
 
-#vue3.php-cat.com {
-#    import tls1
-#    import base
-#    php_fastcgi base17:9000
-#    root * /home/base17/public
-#}
+
+vue3.php-cat.ru {
+    tls 1@php-cat.com
+    import base
+    root * /home/test-vue-mobile-2508/dist
+    file_server
+    try_files {path} {path}/ /index.html
+}
 
 xn--f1aeeb2as.xn--90adfbu3bff.xn--p1ai, domainwaiter.com {
     import tls1
@@ -282,68 +284,12 @@ xn--80aayihhat9j.xn--p1ai {
     import 2309livewire
 }
 
-#управлятор.рф, vk.files.php-cat.com {
-#xn--80ae1ambgeod9j.xn--p1ai, vk.files.php-cat.com {
-#    import tls1
-#    import base
-#    import 2309livewire
-#}
-
-#as.php-cat.com {
-#    import tls1
-#    import base
-#    import 2309livewire
-#}
-
-# атрактор.рф {
-#сноукайтинг.рф, продукты72.рф, земельныйкадастр.рф {
-#    import tls1
-#    import base
-#    import 2309livewire
-#}
-
-#dev.47.avto-as.ru {
-#    import tls1
-#    import base
-#    php_fastcgi 2312auto_as:9000
-#    root * /home_as/2312auto_as/public
-#}
-#
-#avs.php-cat.com, 47.avto-as.ru {
-#    import tls1
-#    import base
-#    php_fastcgi 2312auto_as_prod:9000
-#    root * /home_as/2312auto_as_prod/public
-#}
-#
-#avs.didrive.php-cat.com, d47.avto-as.ru {
-#    import tls1
-#    import base
-#    php_fastcgi 2312didrive_auto:9000
-#    root * /home_as/2312auto_as_didrive/public
-#}
-
-#api74.php-cat.com {
-#    import tls1
-#    import base
-#    php_fastcgi api_php74:9000
-#    root * /home_as/base-php7-api/public
-#}
-
 test2401laravel-vitrin.php-cat.com {
     import tls_off
     import base
     php_fastcgi 2401test:9000
     root * /home/2401test_laravel/public
 }
-
-# сергейсб.рф, kprf72.ru, кпрф72.рф {
-#сергейсб.рф {
-#    import tls1
-#    import base
-#    import 2309livewire
-#}
-
 
 vt.php-cat.ru {
     import base
@@ -367,9 +313,6 @@ u.php-cat.com {
 }
 
 
-
-
-
 #процессмастер.рф, process.php-cat.com {
 #процессмастер.рф, управлятор.рф
 xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-cat.ru {
@@ -387,16 +330,6 @@ xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-c
     respond @showtext "домены xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-cat.ru "
 }
 
-#process.php-cat.com {
-#    import tls1
-#    import base
-#    php_fastcgi proc_master:9000
-#    root * /home/2503master/public
-#    @showtext path /info
-#    respond @showtext "домен траля ля ляы"
-#}
-
-
 #uber
 test-sensor.php-cat.com {
     #import tls_off
@@ -413,8 +346,6 @@ testapi2503.php-cat.com {
     php_fastcgi 2503testapi:9000
     root * /home/2503testapi/public
 }
-
-
 
 test2506.php-cat.com {
     import tls1
@@ -437,12 +368,4 @@ yii2.php-cat.com {
     # tls support@php-cat.com
     import base
     import 2309livewire
-
-    # Этот блок выглядит неправильно, возможно, его следует удалить или исправить
-    # *.ru, *.xn--p1ai, *.com, *.info, *.local, :433, :80 {
-    # :433, :80 {
-    # *.ru, *.xn--p1ai, *.com, *.info, :433 {
-    # :433 {
-
-    #*.ru, *.xn--p1ai, *.com, *.info {
 }
