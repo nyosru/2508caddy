@@ -62,7 +62,7 @@ jobs:
             echo "✅ Код успешно обновлен"
             cp caddy/prod.Caddyfile caddy/Caddyfile
             echo "🔄 Перезагружаем Caddy..."
-            docker-compose exec ${{ env.DOCKER_CONTAINER }} caddy reload --config /etc/caddy/Caddyfile           
+            docker-compose exec -T ${{ env.DOCKER_CONTAINER }} caddy reload --config /etc/caddy/Caddyfile           
             echo "✅✅ Caddy перезагружен без downtime"
 
 #            cp docker-compose.prod.yml docker-compose.yml
