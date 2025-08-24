@@ -60,17 +60,16 @@ jobs:
             git fetch --all
             git reset --hard ${{ env.GIT_BRANCH }}
             echo "✅ Код успешно обновлен"
-#            cp docker-compose.prod.yml docker-compose.yml
             cp caddy/prod.Caddyfile caddy/Caddyfile
-#            docker-compose down --rmi all -v
-#            docker-compose up -d --build
-#            echo "✅✅ контейнер перезагружен"            
-            
-            # Перезагружаем конфиг Caddy
             echo "🔄 Перезагружаем Caddy..."
             docker-compose exec ${{ env.DOCKER_CONTAINER }} caddy reload --config /etc/caddy/Caddyfile           
             echo "✅✅ Caddy перезагружен без downtime"
 
+#            cp docker-compose.prod.yml docker-compose.yml
+#            docker-compose down --rmi all -v
+#            docker-compose up -d --build
+#            echo "✅✅ контейнер перезагружен"
+# Перезагружаем конфиг Caddy
 #  update_laravel:
 #    runs-on: ubuntu-latest
 #    needs: [check_commit, deploy]
