@@ -342,6 +342,14 @@ yii2.php-cat.com {
     root * /home/2507yii2_test/web/
 }
 
+# времяпобед.рус
+xn--90abhcb4bohg6m.xn--p1acf {
+    import tls1
+    import base
+    php_fastcgi 2505timefv_prod2:9000
+    root * /home/2505timefv_prod/public
+}
+
 # Catch-all для HTTP (порт 80)
 :80 {
     import base
