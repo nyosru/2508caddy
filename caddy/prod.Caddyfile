@@ -345,6 +345,17 @@ xn--90abhcb4bohg6m.xn--p1acf {
     import base
     php_fastcgi 2505timefv_prod3:9000
     root * /home/2505time_prod3/public
+
+    # Правила для Laravel
+    try_files {path} {path}/ /index.php?{query}
+
+    # Безопасность
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        X-XSS-Protection "1; mode=block"
+    }
+
 }
 
 
