@@ -336,14 +336,14 @@ time.dev.php-cat.com {
 time.php-cat.com {
     import tls1
     import base
-    php_fastcgi 2505time_prod3:9000
+    php_fastcgi 2505timefv_prod3:9000
     root * /home/2505time_prod3/public
 }
 
 # времяпобед.рус
 xn--90abhcb4bohg6m.xn--p1acf {
     import base
-    php_fastcgi 2505time_prod3:9000
+    php_fastcgi 2505timefv_prod3:9000
     root * /home/2505time_prod3/public
 }
 
