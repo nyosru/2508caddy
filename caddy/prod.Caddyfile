@@ -93,30 +93,6 @@ vue1.dev.php-cat.ru {
 }
 
 
-# время побед
-#дев
-time.dev.php-cat.com {
-    tls 1@php-cat.com
-    import base
-    php_fastcgi 2505timefv:9000
-    root * /home/2505timefv/public
-}
-
-# prod
-# reverse_proxy some_laravel_service:9000
-# времяпобед.рус, time.php-cat.com {
-# reverse_proxy 2505timefv_prod:9000
-
-# времяпобед.рус
-xn--90abhcb4bohg6m.xn--p1acf, time.php-cat.com {
-    tls 1@php-cat.com
-    import base
-    php_fastcgi 2505timefv_prod2:9000
-    root * /home/2505timefv_prod/public
-}
-
-
-
 
 
 
@@ -342,13 +318,45 @@ yii2.php-cat.com {
     root * /home/2507yii2_test/web/
 }
 
-# времяпобед.рус
-xn--90abhcb4bohg6m.xn--p1acf {
+
+# время побед
+#дев
+time.dev.php-cat.com {
+    tls 1@php-cat.com
+    import base
+    php_fastcgi 2505timefv:9000
+    root * /home/2505timefv/public
+}
+
+# prod
+# reverse_proxy some_laravel_service:9000
+# времяпобед.рус, time.php-cat.com {
+# reverse_proxy 2505timefv_prod:9000
+
+time.php-cat.com {
     import tls1
     import base
-    php_fastcgi 2505timefv_prod2:9000
-    root * /home/2505timefv_prod/public
+    php_fastcgi 2505time_prod3:9000
+    root * /home/2505time_prod3/public
 }
+
+# времяпобед.рус
+xn--90abhcb4bohg6m.xn--p1acf {
+    import base
+    php_fastcgi 2505time_prod3:9000
+    root * /home/2505time_prod3/public
+}
+
+
+
+
+
+
+
+
+
+
+
 
 # Catch-all для HTTP (порт 80)
 :80 {
