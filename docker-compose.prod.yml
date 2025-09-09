@@ -23,6 +23,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
 
+    networks:
+      - laravel
+
   caddy:
     container_name: caddy
     image: caddy:latest
