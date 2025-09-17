@@ -76,6 +76,18 @@
 
 
 
+cfa.php-cat.com {
+    import base
+    root * /home/2509cfa/public
+    php_fastcgi 2509cfa:9000
+}
+
+cfa-center.ru {
+    import base
+    root * /home/2509cfa/public
+    php_fastcgi 2509cfa:9000
+}
+
 
 vue-1.php-cat.com {
     #tls 1@php-cat.com
