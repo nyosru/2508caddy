@@ -77,27 +77,11 @@
 
 
 
-cfa.php-cat.com {
+cfa.php-cat.com, cfa-center.ru {
+    import tls1
     import base
-    root * /home/2509cfa/public
-    php_fastcgi 2509cfa:9000
-    try_files {path} /index.php?{query}
+    import 2309livewire
 }
-
-cfa-center.ru {
-
-    tls 1@php-cat.com
-    import base
-    root * /home/2509web_cfa/public
-    php_fastcgi 2509cfa:9000
-
-  # Rewrite rules for Laravel
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-
-}
-
 
 vue-1.php-cat.com {
     #tls 1@php-cat.com
