@@ -85,9 +85,8 @@ cfa.php-cat.com {
 
 cfa-center.ru {
     import base
-    root * /home/2509cfa/public
-    php_fastcgi 2509cfa:9000
-    try_files {path} /index.php?{query}
+    root * /home/2509cfa2/public
+    php_fastcgi 2509cfa2:9000
 }
 
 
