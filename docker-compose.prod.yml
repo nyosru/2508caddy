@@ -43,8 +43,8 @@ services:
       #      - 'caddy_logs:/var/log/caddy'
 
       #cfa
-      - '${FOLDER_2509CFA}:${FOLDER_2509CFA_SERV}'
-      - '${FOLDER_2509CFA2}:${FOLDER_2509CFA2_SERV}'
+#      - '${FOLDER_2509CFA}:${FOLDER_2509CFA_SERV}'
+#      - '${FOLDER_2509CFA2}:${FOLDER_2509CFA2_SERV}'
       - '${FOLDER_2509WEB_CFA}:${FOLDER_2509WEB_CFA_SERV}'
 
       - '${FOLDER_2505TIMEFV_PROD3}:${FOLDER_2505TIMEFV_PROD3_SERV}'
