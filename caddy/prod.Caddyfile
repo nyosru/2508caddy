@@ -77,6 +77,12 @@
 
 
 
+www.krostu.com, krostu.com {
+    import tls1
+    import base
+    import 2309livewire
+}
+
 cfa.php-cat.com, cfa-center.ru {
     import tls1
     import base
