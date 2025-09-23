@@ -78,14 +78,17 @@
 
 
 krostu.com {
-    import tls1
+    # import tls1
+    tls support@php-cat.com
     import base
     import 2309livewire
 }
 www.krostu.com {
-    import tls1
-     redir https://krostu.com{uri} 301
+    # import tls1
+    tls support@php-cat.com
+    redir https://krostu.com{uri} 301
 }
+
 
 cfa.php-cat.com, cfa-center.ru {
     import tls1
