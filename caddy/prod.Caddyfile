@@ -76,13 +76,14 @@
 
 
 
-
-krostu.com {
+# кросту.рф
+xn--j1aifffg.xn--p1ai, krostu.com {
     # import tls1
     tls support@php-cat.com
     import base
     import 2309livewire
 }
+
 www.krostu.com {
     # import tls1
     tls support@php-cat.com
@@ -95,6 +96,63 @@ cfa.php-cat.com, cfa-center.ru {
     import base
     import 2309livewire
 }
+
+
+
+
+
+# земельныйКадастр продатьдолг.рф делород.рф
+xn--80aalcakqihin5bmo2koa.xn--p1ai, xn--80agbb9aoddjx4i.xn--p1ai, xn--d1aacypan.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+# фасадсибири.рф куикон.рф герчик.рф
+xn--80aadluba7ddc2a.xn--p1ai, xn--h1adbme1a.xn--p1ai, xn--c1aeji2a6b.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+# боба.рф раал.рф аннигиляция.рф ттт72.рф
+xn--80aba5c.xn--p1ai, xn--80aa7ar.xn--p1ai, xn--80agobarka9f6dc.xn--p1ai, xn--72-qmcaa.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+# падел72.рф кпрф72.рф  бу72.рф сиги.рф
+xn--72-6kcqf0bya.xn--p1ai, xn--72-1lcufy.xn--p1ai, xn--72-9kc6e.xn--p1ai, xn--c1ajb7a.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+# сергейсб.рф сноукайтинг.рф взыскатьзадолженность.рф
+xn--90adfbu3bff.xn--p1ai, xn--80agoddredzph.xn--p1ai, xn--80aaekffdbzoyaif7amgl9myam.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+
+bu72.ru, kprf72.ru {
+    import tls1
+    import base
+    import 2309livewire
+}
+
+# автолад.рф маруди.рф продукты72.рф
+xn--80aaeblo4ax9a.xn--p1ai, xn--80aimnvs.xn--p1ai, xn--72-jlcysfhth6f.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+
+# складдокументов.рф теннис72.рф шагород.рф
+xn--80aefaf0adenlhe2ayl.xn--p1ai, xn--72-mlcmya3ad.xn--p1ai, xn--80agd3bal6c.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+
+
 
 vue-1.php-cat.com {
     #tls 1@php-cat.com
@@ -145,13 +203,6 @@ xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai {
 
 
 
-#bu72.ru, бу72.рф {
-#    tls 1@php-cat.com
-#    import base
-#    import 2309livewire
-#}
-
-
 #privat.php-cat.com, 1.php-cat.com {
 #    import tls1
 #    import base
@@ -183,16 +234,8 @@ php-cat.com, php-cat.ru, seotel.ru {
     import 2309livewire
 }
 
-# складдокументов.рф
-xn--80aefaf0adenlhe2ayl.xn--p1ai {
-
-    import tls1
-    import base
-    import 2309livewire
-}
 
 # тюменскаяафиша.рф {
-#ттт72.рф, ttt72.ru, xn--80aaarrjmj0bg3a3c0dua.xn--p1ai {
 xn--80aaarrjmj0bg3a3c0dua.xn--p1ai {
     import tls1
     import base
@@ -288,7 +331,7 @@ u.php-cat.com {
 }
 
 
-#процессмастер.рф, process.php-cat.com {
+
 #процессмастер.рф, управлятор.рф
 xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-cat.ru {
 
