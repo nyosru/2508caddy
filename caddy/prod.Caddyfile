@@ -101,6 +101,13 @@ cfa.php-cat.com, cfa-center.ru {
 
 
 
+# финансоваяАналитика.рф
+xn--80aaaaai4bfauisbdl1czaw1t.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+
 # земельныйКадастр продатьдолг.рф делород.рф
 xn--80aalcakqihin5bmo2koa.xn--p1ai, xn--80agbb9aoddjx4i.xn--p1ai, xn--d1aacypan.xn--p1ai {
     import tls1
@@ -113,8 +120,14 @@ xn--80aadluba7ddc2a.xn--p1ai, xn--h1adbme1a.xn--p1ai, xn--c1aeji2a6b.xn--p1ai {
     import base
     import 2309livewire
 }
-# боба.рф раал.рф аннигиляция.рф ттт72.рф
+# боба.рф раал.рф аннигиляция.рф
 xn--80aba5c.xn--p1ai, xn--80aa7ar.xn--p1ai, xn--80agobarka9f6dc.xn--p1ai, xn--72-qmcaa.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+# ттт72.рф
+xn--72-qmcaa.xn--p1ai, ttt72.ru {
     import tls1
     import base
     import 2309livewire
