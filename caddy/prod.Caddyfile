@@ -101,6 +101,13 @@ cfa.php-cat.com, cfa-center.ru {
 
 
 
+# концептмебель.рф
+xn--90ahabvkdgim7a8b8e.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+
 # финансоваяАналитика.рф
 xn--80aaaaai4bfauisbdl1czaw1t.xn--p1ai {
     import tls1
