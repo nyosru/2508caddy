@@ -42,6 +42,8 @@ services:
       - './caddy/data-caddy:/data/'
       #      - 'caddy_logs:/var/log/caddy'
 
+      - '${FOLDER_2510VUE32}:${FOLDER_2510VUE32_SERV}'
+
       #cfa
 #      - '${FOLDER_2509CFA}:${FOLDER_2509CFA_SERV}'
 #      - '${FOLDER_2509CFA2}:${FOLDER_2509CFA2_SERV}'

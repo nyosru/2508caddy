@@ -75,6 +75,13 @@
 
 
 
+2510vue3.php-cat.com {
+    import tls1
+    import base
+    root * /home/2510vue32/public
+    php_fastcgi 2510vue32:9000
+}
+
 
 # кросту.рф
 xn--j1aifffg.xn--p1ai, krostu.com {
