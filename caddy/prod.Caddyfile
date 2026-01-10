@@ -1,5 +1,5 @@
 # Глобальные блокировки и безопасность (применяется ко всем сайтам)
-@bad_storage_probe path_regexp ^/storage/.*/index\.php$
+@bad_storage_probe path_regexp ^/storage/.*\.php$
 respond @bad_storage_probe 403 "Forbidden probe path"
 
 # Глобальные заголовки безопасности
