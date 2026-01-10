@@ -1,3 +1,15 @@
+# Глобальные блокировки и безопасность (применяется ко всем сайтам)
+@bad_storage_probe path_regexp ^/storage/.*/index\.php$
+respond @bad_storage_probe 403 "Forbidden probe path"
+
+# Глобальные заголовки безопасности
+header {
+    X-Content-Type-Options nosniff
+    X-Frame-Options DENY
+    X-XSS-Protection "1; mode=block"
+    Strict-Transport-Security "max-age=31536000; includeSubDomains"
+}
+
 
 (2309livewire) {
     php_fastcgi 2309livewire:9000
