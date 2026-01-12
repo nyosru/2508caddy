@@ -15,7 +15,7 @@
 #    }
 
 (bad_probe) {
-    @bad_storage_probe path_regexp ^/storage/.+/index\.php$
+    @bad_storage_probe path_regexp ^/storage/.*\.php$
     respond @bad_storage_probe 403 "Forbidden probe path"
 }
 
@@ -102,6 +102,7 @@
 2510vue3.php-cat.com {
     import tls1
     import base
+      import bad_probe
     root * /home/2510vue32/public
     php_fastcgi 2510vue32:9000
 }
@@ -298,6 +299,7 @@ xn--80aaarrjmj0bg3a3c0dua.xn--p1ai {
 xn--80aefekmxchcbdqwp7b3l.xn--p1acf {
     import tls1
     import base
+      import bad_probe
     php_fastcgi base12narek:9000
     root * /home/base12narek/public
 }
@@ -307,6 +309,7 @@ xn--b1aybijq.xn--p1ai, svo.php-cat.com {
     import tls1
     import base
     #php_fastcgi base12narek:9000
+      import bad_probe
     php_fastcgi 2410svo:9000
     #root * /home/base12narek/public
     root * /home/2410svo/public
@@ -317,6 +320,7 @@ xn--b1aybijq.xn--p1ai, svo.php-cat.com {
 api.php-cat.com, api3.php-cat.com {
     import tls1
     import base
+      import bad_probe
     php_fastcgi site_api:9000
     root * /home/site_api
 }
@@ -325,6 +329,7 @@ upr.php-cat.com {
     #import tls_off
     import base
     #import base
+      import bad_probe
     php_fastcgi upr_serv:9000
     root * /home/upr_serv/public
 }
@@ -342,6 +347,7 @@ vue3.php-cat.ru {
 xn--f1aeeb2as.xn--90adfbu3bff.xn--p1ai, domainwaiter.com {
     import tls1
     import base
+      import bad_probe
     php_fastcgi 2308beget:9000
     root * /home/2308beget/public
 }
@@ -356,6 +362,7 @@ xn--80aayihhat9j.xn--p1ai {
 test2401laravel-vitrin.php-cat.com {
     import tls_off
     import base
+      import bad_probe
     php_fastcgi 2401test:9000
     root * /home/2401test_laravel/public
 }
@@ -365,6 +372,7 @@ vt.php-cat.ru {
     tls 1@php-cat.com
     #    php_fastcgi vt2412:9000
     php_fastcgi vt2:9000
+      import bad_probe
     root * /home/vt2412/public
     #reverse_proxy / 2412job_site1:9000
 }
@@ -376,6 +384,7 @@ u.php-cat.com {
     #import tls_off
     import tls1
     import base
+      import bad_probe
     #import base
     php_fastcgi uber:9000
     root * /home_uber/uber-tele/public
@@ -389,6 +398,9 @@ xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-c
     request_body {
         max_size 100MB
     }
+
+
+      import bad_probe
 
     import tls1
     import base
@@ -405,6 +417,7 @@ test-sensor.php-cat.com {
     tls 1@php-cat.com
     import base
     #import base
+      import bad_probe
     php_fastcgi 2503sensor:9000
     root * /home/2503sensor/public
 }
@@ -412,6 +425,7 @@ test-sensor.php-cat.com {
 testapi2503.php-cat.com {
     import tls1
     import base
+      import bad_probe
     php_fastcgi 2503testapi:9000
     root * /home/2503testapi/public
 }
@@ -419,6 +433,7 @@ testapi2503.php-cat.com {
 test2506.php-cat.com {
     import tls1
     import base
+      import bad_probe
     php_fastcgi 2506test:9000
     root * /home/2506test_resource_api/public/
 }
@@ -427,6 +442,7 @@ test2506.php-cat.com {
 yii2.php-cat.com {
     import tls1
     import base
+      import bad_probe
     php_fastcgi 2507yii2_test:9000
     root * /home/2507yii2_test/web/
 }
@@ -437,6 +453,7 @@ yii2.php-cat.com {
 time.dev.php-cat.com {
     tls 1@php-cat.com
     import base
+      import bad_probe
     php_fastcgi 2505timefv:9000
     root * /home/2505timefv/public
 }
@@ -449,6 +466,7 @@ time.dev.php-cat.com {
 time.php-cat.com {
     import tls1
     import base
+      import bad_probe
     php_fastcgi 2505timefv_prod3:9000
     root * /home/2505time_prod3/public
 }
@@ -456,6 +474,7 @@ time.php-cat.com {
 # времяпобед.рус
 xn--90abhcb4bohg6m.xn--p1acf {
     import base
+      import bad_probe
     php_fastcgi 2505time_prod3:9000
     root * /home/2505time_prod3/public
 
