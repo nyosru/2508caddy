@@ -1,6 +1,4 @@
-# Глобальные блокировки и безопасность (применяется ко всем сайтам)
-@bad_storage_probe path_regexp ^/storage/.*\.php$
-respond @bad_storage_probe 403 "Forbidden probe path"
+
 
 # Глобальные заголовки безопасности
 header {
@@ -12,8 +10,14 @@ header {
 
 
 (2309livewire) {
+
+    # Глобальные блокировки и безопасность (применяется ко всем сайтам)
+    @bad_storage_probe path_regexp ^/storage/.*\.php$
+    respond @bad_storage_probe 403 "Forbidden probe path"
+
     php_fastcgi 2309livewire:9000
     root * /home/2309livewire/public
+
 }
 
 (base) {
