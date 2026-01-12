@@ -14,8 +14,14 @@
 #        Strict-Transport-Security "max-age=31536000; includeSubDomains"
 #    }
 
+(bad_probe) {
+    @bad_storage_probe path_regexp ^/storage/.+/index\.php$
+    respond @bad_storage_probe 403 "Forbidden probe path"
+}
+
 (2309livewire) {
 
+    import bad_probe
 
     php_fastcgi 2309livewire:9000
     root * /home/2309livewire/public
