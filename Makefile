@@ -12,6 +12,7 @@ create_web_laravel:
 
 
 
+
 caddy_refresh_cfd_prod:
 	cp caddy/prod.Caddyfile caddy/Caddyfile
 	docker exec caddy caddy fmt --overwrite /etc/caddy/Caddyfile

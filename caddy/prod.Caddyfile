@@ -101,7 +101,13 @@
 
 
 
-
+p.php-cat.com {
+    reverse_proxy localhost:9443 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
 
 
 2510vue3.php-cat.com {
