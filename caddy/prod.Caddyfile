@@ -1,6 +1,10 @@
 
 
-
+# Snippet для блокировки PHP в storage
+(storage_no_php) {
+    @storage_php path_regexp ^/storage/.*\.php$
+    respond @storage_php 403 "Forbidden: PHP execution disabled in storage"
+}
 
     # Глобальные блокировки и безопасность (применяется ко всем сайтам)
 #    @bad_storage_probe path_regexp ^/storage/.*\.php$
@@ -26,7 +30,8 @@
 
 (2309livewire) {
 
-    import bad_probe
+    #import bad_probe
+    import storage_no_php
 
     php_fastcgi 2309livewire:9000
     root * /home/2309livewire/public
@@ -111,6 +116,7 @@ p.php-cat.com {
 
 
 2510vue3.php-cat.com {
+
     import tls1
     import base
       import bad_probe
