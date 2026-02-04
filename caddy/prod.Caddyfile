@@ -1,10 +1,24 @@
 
+# Catch-all для HTTP (порт 80)
+:80 {
+    import base
+    import 2309livewire
+}
+
+# Catch-all для HTTPS (порт 443)
+:443 {
+    import tls1
+    import base
+    import 2309livewire
+}
 
 # Snippet для блокировки PHP в storage
 (storage_no_php) {
     @storage_php path_regexp ^/storage/.*\.php$
     respond @storage_php 403 "Forbidden: PHP execution disabled in storage"
 }
+
+
 
     # Глобальные блокировки и безопасность (применяется ко всем сайтам)
 #    @bad_storage_probe path_regexp ^/storage/.*\.php$
@@ -27,6 +41,8 @@
 
     respond @bad_storage_probe 403 "Forbidden probe path"
 }
+
+
 
 (2309livewire) {
 
@@ -579,16 +595,3 @@ xn--90abhcb4bohg6m.xn--p1acf {
 
 
 
-
-# Catch-all для HTTP (порт 80)
-:80 {
-    import base
-    import 2309livewire
-}
-
-# Catch-all для HTTPS (порт 443)
-:443 {
-    import tls1
-    import base
-    import 2309livewire
-}
