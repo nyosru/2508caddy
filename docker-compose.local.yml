@@ -1,4 +1,3 @@
-version: '3.8'
 
 networks:
   laravel:
@@ -44,6 +43,7 @@ services:
       - caddy_caddyfile:/etc/caddy
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
 
+      - '${FOLDER_2602LARAVEL_TEST}:${FOLDER_2602LARAVEL_TEST_SERV}'
       - '${FOLDER_2503MASTER}:${FOLDER_2503MASTER_SERV}'
 
       #livewire

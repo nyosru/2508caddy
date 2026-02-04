@@ -106,6 +106,40 @@
 
 
 
+
+
+
+
+laravel.test.php-cat.com {
+    import tls1
+    import base
+    import bad_probe
+    php_fastcgi 2602test_laravel:9000
+    root * /home/2602test_laravel/public
+}
+
+
+symfony.test.php-cat.com {
+    import tls1
+    import base
+    import bad_probe
+
+    php_fastcgi symfony2601:9000
+    root * /home/symfony2601/public
+
+    # Правильные MIME-типы для Swagger UI
+    header {
+        # JS
+        /bundles/nelmioapidoc/swagger-ui/*.js Content-Type "application/javascript; charset=utf-8"
+        # CSS
+        /bundles/nelmioapidoc/swagger-ui/*.css Content-Type "text/css; charset=utf-8"
+    }
+
+}
+
+
+
+
 p.php-cat.com {
     reverse_proxy localhost:9443 {
         transport http {
