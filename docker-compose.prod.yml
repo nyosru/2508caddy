@@ -28,8 +28,18 @@ services:
       - './caddy/Caddyfile:/etc/caddy/Caddyfile'
       - './caddy/config:/config/'
       - './caddy/data-caddy:/data/'
-      #      - 'caddy_logs:/var/log/caddy'
 
+      # tests
+      - '${FOLDER_2602LARAVEL_TEST}:${FOLDER_2602LARAVEL_TEST_SERV}'
+      - '${FOLDER_SYMFONY2601}:${FOLDER_SYMFONY2601_SERV}'
+
+      - '${FOLDER_2401TEST}:${FOLDER_2401TEST_SERV}'
+      - '${FOLDER_TEST23116PHP}:${FOLDER_TEST23116PHP_SERV}'
+      - '${FOLDER_2503TEST_API}:${FOLDER_2503TEST_API_SERV}'
+      # test api 2506
+      - '${FOLDER_2506TESTAPI}:${FOLDER_2506TESTAPI_SERV}'
+
+      #sites
       - '${FOLDER_2510VUE32}:${FOLDER_2510VUE32_SERV}'
 
       #cfa
@@ -42,8 +52,6 @@ services:
 #- '/home/test-vue-mobile-2508/dist:/home/vue-app-prod'  # для прямого обслуживания
       - '/home/test-vue-mobile-2508:/home/test-vue-mobile-2508'  # для прямого обслуживания
 
-      # test api 2506
-      - '${FOLDER_2506TESTAPI}:${FOLDER_2506TESTAPI_SERV}'
       #proc-master
       - '${FOLDER_2503MASTER}:${FOLDER_2503MASTER_SERV}'
       #test 2503sensor
@@ -70,15 +78,12 @@ services:
       - '${FOLDER_2308BEGET}:${FOLDER_2308BEGET_SERV}'
       - '${FOLDER_2309LIVEWIRE}:${FOLDER_2309LIVEWIRE_SERV}'
 
-      - '${FOLDER_2401TEST}:${FOLDER_2401TEST_SERV}'
-      - '${FOLDER_TEST23116PHP}:${FOLDER_TEST23116PHP_SERV}'
       - '${FOLDER_BASE16}:${FOLDER_BASE16_SERV}'
       - '${FOLDER_BASE17}:${FOLDER_BASE17_SERV}'
       - '${FOLDER_BASE12NAREK}:${FOLDER_BASE12NAREK_SERV}'
       - '${FOLDER_UPRSERV}:${FOLDER_UPRSERV_SERV}'
       - '${FOLDER_SITE_API}:${FOLDER_SITE_API_SERV}'
 
-      - '${FOLDER_2503TEST_API}:${FOLDER_2503TEST_API_SERV}'
 
 #      - '${FOLDER_bitrix24_2407_01}:${FOLDER_bitrix24_2407_01_SERV}'
 #      - '${FOLDER_VT2412_DEV}:${FOLDER_VT2412_SERV}'
