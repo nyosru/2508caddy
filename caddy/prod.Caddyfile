@@ -138,7 +138,7 @@ symfony-test.php-cat.com, symfony.test.php-cat.com {
 }
 
 
-
+#vue3 форма заказа услуги с временем
 2510vue3.php-cat.com {
 
     import tls1
@@ -148,7 +148,13 @@ symfony-test.php-cat.com, symfony.test.php-cat.com {
     php_fastcgi 2510vue32:9000
 }
 
-
+# макет мобильника с витриной лотереи vue
+vue1.dev.php-cat.ru {
+    tls 1@php-cat.com
+    import base
+    root * /home/test-vue-mobile-2508/dist
+    try_files {path} {path}/ /index.html
+}
 
 
 
@@ -290,12 +296,6 @@ vue-1.php-cat.com {
     try_files {path} {path}/ /index.html
 }
 
-vue1.dev.php-cat.ru {
-    tls 1@php-cat.com
-    import base
-    root * /home/test-vue-mobile-2508/dist
-    try_files {path} {path}/ /index.html
-}
 
 
 
