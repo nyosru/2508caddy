@@ -110,7 +110,7 @@
 
 
 
-laravel.test.php-cat.com {
+laravel-test.php-cat.com, laravel.test.php-cat.com {
     import tls1
     import base
     import bad_probe
@@ -119,7 +119,7 @@ laravel.test.php-cat.com {
 }
 
 
-symfony.test.php-cat.com {
+symfony-test.php-cat.com, symfony.test.php-cat.com {
     import tls1
     import base
     import bad_probe
@@ -139,16 +139,6 @@ symfony.test.php-cat.com {
 
 
 
-
-p.php-cat.com {
-    reverse_proxy localhost:9443 {
-        transport http {
-            tls_insecure_skip_verify
-        }
-    }
-}
-
-
 2510vue3.php-cat.com {
 
     import tls1
@@ -156,6 +146,26 @@ p.php-cat.com {
       import bad_probe
     root * /home/2510vue32/public
     php_fastcgi 2510vue32:9000
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+p.php-cat.com {
+    reverse_proxy localhost:9443 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
 }
 
 
@@ -180,6 +190,15 @@ cfa.php-cat.com, cfa-center.ru {
     import 2309livewire
 }
 
+# финансоваяАналитика.рф
+xn--80aaaaai4bfauisbdl1czaw1t.xn--p1ai {
+    import tls1
+    import base
+    import 2309livewire
+}
+
+
+
 
 
 
@@ -191,12 +210,21 @@ xn--90ahabvkdgim7a8b8e.xn--p1ai {
     import 2309livewire
 }
 
-# финансоваяАналитика.рф
-xn--80aaaaai4bfauisbdl1czaw1t.xn--p1ai {
+
+
+# ттт72.рф
+xn--72-qmcaa.xn--p1ai, ttt72.ru {
     import tls1
     import base
     import 2309livewire
 }
+
+
+
+
+
+
+
 
 # земельныйКадастр продатьдолг.рф делород.рф
 xn--80aalcakqihin5bmo2koa.xn--p1ai, xn--80agbb9aoddjx4i.xn--p1ai, xn--d1aacypan.xn--p1ai {
@@ -216,12 +244,9 @@ xn--80aba5c.xn--p1ai, xn--80aa7ar.xn--p1ai, xn--80agobarka9f6dc.xn--p1ai {
     import base
     import 2309livewire
 }
-# ттт72.рф
-xn--72-qmcaa.xn--p1ai, ttt72.ru {
-    import tls1
-    import base
-    import 2309livewire
-}
+
+
+
 # падел72.рф кпрф72.рф  бу72.рф сиги.рф
 xn--72-6kcqf0bya.xn--p1ai, xn--72-1lcufy.xn--p1ai, xn--72-9kc6e.xn--p1ai, xn--c1ajb7a.xn--p1ai {
     import tls1
