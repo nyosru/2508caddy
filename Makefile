@@ -63,7 +63,7 @@ prod:
 	make create_web_laravel
 	@echo "+++2 prod environment started"
 #	cp caddy/prod.Caddyfile caddy/Caddyfile
-	cp docker compose.prod.yml docker compose.yml
+	cp docker-compose.prod.yml docker-compose.yml
 	make caddy_refresh_cfd_prod
 	docker compose down --rmi all -v
 	docker compose up -d --build
@@ -77,7 +77,7 @@ devss:
 	@echo "Development environment started"
 	make create_web_laravel
 	cp caddy/dev.Caddyfile caddy/Caddyfile
-	cp docker compose.local.yml docker compose.yml
+	cp docker-compose.local.yml docker-compose.yml
 	docker compose down
 	docker compose up -d --remove-orphans --build
 	make caddy_refresh_cfd
