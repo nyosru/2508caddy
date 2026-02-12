@@ -516,7 +516,11 @@ xn--90abhcb4bohg6m.xn--p1acf {
 }
 
 
-
+default_server {
+#    respond "Site not configured" 404
+    import base
+    import 2309livewire
+}
 
 # Catch-all для HTTP (порт 80)
 #:80 {
