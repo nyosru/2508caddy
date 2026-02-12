@@ -4,7 +4,7 @@
     @storage_php path_regexp ^/storage/.*\.php$
 
     log @bad_storage_probe {
-        output file /log-probe.storage_no_php.log
+        output file /home2/log-probe.storage_no_php.log
     }
 
     respond @storage_php 403 "Forbidden: PHP execution disabled in storage"
@@ -14,7 +14,7 @@
     @bad_storage_probe path_regexp ^/storage/.*\.php$
 
     log @bad_storage_probe {
-        output file /log-probe.log
+        output file /home2/log-probe.log
     }
 
     respond @bad_storage_probe 403 "Forbidden probe path"
@@ -519,14 +519,14 @@ xn--90abhcb4bohg6m.xn--p1acf {
 
 
 # Catch-all для HTTP (порт 80)
-:80 {
-    import base
-    import 2309livewire
-}
+#:80 {
+#    import base
+#    import 2309livewire
+# }
 
 # Catch-all для HTTPS (порт 443)
-:443 {
-    import tls1
-    import base
-    import 2309livewire
-}
+# :443 {
+#    import tls1
+#    import base
+#    import 2309livewire
+# }
