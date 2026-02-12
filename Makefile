@@ -65,7 +65,7 @@ prod:
 #	cp caddy/prod.Caddyfile caddy/Caddyfile
 	cp docker-compose.prod.yml docker-compose.yml
 	docker-compose down --rmi all -v
-	docker-compose up -d --build
+	docker compose up -d --build
 	make caddy_refresh_cfd_prod
 	#docker system prune --force
 
