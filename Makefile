@@ -9,6 +9,23 @@ create_web_laravel:
 		echo "++00 Docker network laravel already exists"; \
 	fi
 
+dev:
+	@echo "Development environment started"
+	make create_web_laravel
+	cp caddy/dev.Caddyfile caddy/Caddyfile
+	cp docker-compose.local.yml docker-compose.yml
+	docker-compose up -d --remove-orphans
+	make caddy_refresh_cfd
+
+caddy_refresh_cfd:
+	cp caddy/dev.Caddyfile caddy/Caddyfile
+	docker exec caddy caddy fmt --overwrite /etc/caddy/Caddyfile
+	docker exec caddy caddy reload --config /etc/caddy/Caddyfile
+
+
+
+
+
 
 
 
@@ -56,16 +73,7 @@ prod:
 
 
 
-
-dev:
-	@echo "Development environment started"
-	make create_web_laravel
-	cp caddy/dev.Caddyfile caddy/Caddyfile
-	cp docker-compose.local.yml docker-compose.yml
-	docker-compose up -d --remove-orphans
-	make caddy_refresh_cfd
-
-dev2:
+devss:
 	@echo "Development environment started"
 	make create_web_laravel
 	cp caddy/dev.Caddyfile caddy/Caddyfile
@@ -73,12 +81,6 @@ dev2:
 	docker-compose down
 	docker-compose up -d --remove-orphans --build
 	make caddy_refresh_cfd
-
-caddy_refresh_cfd:
-	cp caddy/dev.Caddyfile caddy/Caddyfile
-	docker exec caddy caddy fmt --overwrite /etc/caddy/Caddyfile
-	docker exec caddy caddy reload --config /etc/caddy/Caddyfile
-
 
 
 
@@ -120,7 +122,7 @@ d:
 web:
 	docker network create shared_network
 
-create_web_laravel:
+c11reate_web_laravel:
 	@if ! docker network ls --format '{{.Name}}' | grep -w laravel > /dev/null; then \
 		echo "Creating Docker network laravel"; \
 		docker network create laravel; \
@@ -130,7 +132,7 @@ create_web_laravel:
 
 
 
-dev2:
+11dev2:
 	@echo "Development environment started"
 	make create_web_laravel
 	#docker-compose down
