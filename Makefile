@@ -13,8 +13,8 @@ dev:
 	@echo "Development environment started"
 	make create_web_laravel
 	cp caddy/dev.Caddyfile caddy/Caddyfile
-	cp docker-compose.local.yml docker-compose.yml
-	docker-compose up -d --remove-orphans
+	cp docker compose.local.yml docker compose.yml
+	docker compose up -d --remove-orphans
 	make caddy_refresh_cfd
 
 caddy_refresh_cfd:
@@ -47,9 +47,9 @@ prod_deploy:
 	make create_web_laravel
 	@echo "+++2 prod environment started"
 #	cp caddy/prod.Caddyfile caddy/Caddyfile
-	cp docker-compose.prod.yml docker-compose.yml
-	docker-compose down --rmi all -v
-	docker-compose up -d --build
+	cp docker compose.prod.yml docker compose.yml
+	docker compose down --rmi all -v
+	docker compose up -d --build
 	#make caddy_refresh_cfd_prod
 	#docker system prune --force
 
@@ -63,7 +63,7 @@ prod:
 	make create_web_laravel
 	@echo "+++2 prod environment started"
 #	cp caddy/prod.Caddyfile caddy/Caddyfile
-	cp docker-compose.prod.yml docker-compose.yml
+	cp docker compose.prod.yml docker compose.yml
 	make caddy_refresh_cfd_prod
 	docker compose down --rmi all -v
 	docker compose up -d --build
@@ -77,9 +77,9 @@ devss:
 	@echo "Development environment started"
 	make create_web_laravel
 	cp caddy/dev.Caddyfile caddy/Caddyfile
-	cp docker-compose.local.yml docker-compose.yml
-	docker-compose down
-	docker-compose up -d --remove-orphans --build
+	cp docker compose.local.yml docker compose.yml
+	docker compose down
+	docker compose up -d --remove-orphans --build
 	make caddy_refresh_cfd
 
 
@@ -96,9 +96,9 @@ devss:
 #	cat &^ > output_file.txt
 
 ca:
-	docker-compose up -d
+	docker compose up -d
 	docker cp upr_serv:/home/upr_serv/storage/app/Caddyfile-new ./Caddyfile-new
-	#docker-compose down
+	#docker compose down
 	#docker cp ./Caddyfile-new caddy:/etc/caddy/Caddyfile
 	#docker cp ./Caddyfile-new /2304bu_serv-docker/caddy/Caddyfile
 	#cp ./Caddyfile-new /2304bu_serv-docker/caddy/Caddyfile
@@ -107,17 +107,17 @@ ca:
 	cp ./Caddyfile-new ./caddy/Caddyfile.new
 	#docker cp ./Caddyfile-new caddy:/etc/caddy/Caddyfile
 	#docker cp ./Caddyfile-new caddy:/caddy/Caddyfile
-	#cp docker-compose.local.yml docker-compose.yml
+	#cp docker compose.local.yml docker compose.yml
 #	cp caddy/Caddyfile.new caddy/Caddyfile
-	docker-compose up -d
+	docker compose up -d
 	#cp caddy/dev.Caddyfile caddy/Caddyfile
 	#make caddy_refresh_cfd
-	#docker-compose up -d
+	#docker compose up -d
 
 d:
 	# пересборка питон парсера web_scraper2
-	docker-compose up -d --build --force-recreate web_scraper2
-	#docker-compose -f ./docker-compose.local.yml up -d --remove-orphans
+	docker compose up -d --build --force-recreate web_scraper2
+	#docker compose -f ./docker compose.local.yml up -d --remove-orphans
 
 web:
 	docker network create shared_network
@@ -135,40 +135,40 @@ c11reate_web_laravel:
 11dev2:
 	@echo "Development environment started"
 	make create_web_laravel
-	#docker-compose down
+	#docker compose down
 	#docker network rm laravel
 	#docker network create laravel
 	cp caddy/dev.Caddyfile caddy/Caddyfile
 	#cp caddy/dev.Caddyfile caddy2/Caddyfile
-	cp docker-compose.local.yml docker-compose.yml
-	docker-compose up -d --build --remove-orphans
+	cp docker compose.local.yml docker compose.yml
+	docker compose up -d --build --remove-orphans
 	# использовать другой файл докер композ
-	#docker-compose -f ./docker-compose.local.yml up -d --remove-orphans
-	#docker-compose up -d --force-recreate web_scraper --remove-orphans
+	#docker compose -f ./docker compose.local.yml up -d --remove-orphans
+	#docker compose up -d --force-recreate web_scraper --remove-orphans
 	#make start_2309livewire
 	#make start_2410svo_dev
 	#make start_base12narek_dev
 
 	make caddy_refresh_cfd
-	#docker-compose up -d --build --remove-orphans
+	#docker compose up -d --build --remove-orphans
 
 devuber:
 	cp caddy/dev.uber.Caddyfile caddy/Caddyfile
-	cp docker-compose.local.uber.yml docker-compose.yml
-	docker-compose up -d --remove-orphans
+	cp docker compose.local.uber.yml docker compose.yml
+	docker compose up -d --remove-orphans
 	make caddy_refresh_cfd
 
 dev23:
 	cp caddy/dev.23.Caddyfile caddy/Caddyfile
-	cp docker-compose.local.23.yml docker-compose.yml
-	docker-compose up -d --remove-orphans
+	cp docker compose.local.23.yml docker compose.yml
+	docker compose up -d --remove-orphans
 	make caddy_refresh_cfd
 
 
 devv:
 	#cp caddy/dev.м.Caddyfile caddy/Caddyfile
-	cp docker-compose.local.v.yml docker-compose.yml
-	docker-compose up -d --remove-orphans
+	cp docker compose.local.v.yml docker compose.yml
+	docker compose up -d --remove-orphans
 	#make caddy_refresh_cfd
 
 
@@ -176,8 +176,8 @@ devv:
 
 restart_caddy_prod:
 	cp caddy/prod.Caddyfile caddy/Caddyfile
-	cp docker-compose.prod.yml docker-compose.yml
-	docker-compose up -d --remove-orphans
+	cp docker compose.prod.yml docker compose.yml
+	docker compose up -d --remove-orphans
 	docker restart caddy
 
 
@@ -402,27 +402,27 @@ start_avtoas_didrive_prod:
 
 start0:
 
-	docker-compose exec ttt72_laravel php artisan storage:link
-	docker-compose up -d
+	docker compose exec ttt72_laravel php artisan storage:link
+	docker compose up -d
 
 start00:
 
 	# docker stop $(docker ps -a -q)
 	# docker rm $(docker ps -a -q)
 
-	# docker-compose up --build -d --remove-orphans
-	docker-compose up -d
+	# docker compose up --build -d --remove-orphans
+	docker compose up -d
 
-	# docker-compose exec bu72_back composer i
-	# docker-compose exec bu72_back php artisan migrate
+	# docker compose exec bu72_back composer i
+	# docker compose exec bu72_back php artisan migrate
 
-	# docker-compose exec ttt72_laravel ls 
-	# docker-compose exec caddy restart caddy
+	# docker compose exec ttt72_laravel ls 
+	# docker compose exec caddy restart caddy
 
-	# docker-compose exec ttt72_laravel php composer.phar i --no-dev
+	# docker compose exec ttt72_laravel php composer.phar i --no-dev
 	docker exec ttt72_laravel php composer.phar i --no-dev
 
-	# docker-compose exec ttt72_laravel php artisan migrate
+	# docker compose exec ttt72_laravel php artisan migrate
 	docker exec ttt72_laravel php artisan migrate
 	
 	make caddy_refresh_cfd
@@ -431,28 +431,28 @@ start00:
 dev00:
 
 	cp caddy/dev.Caddyfile caddy/Caddyfile
-	cp docker-compose.local.yml docker-compose.yml
+	cp docker compose.local.yml docker compose.yml
 
 	# # bu72
 	# cp bu72_front/code/nuxt.config.local.ts bu72_front/code/nuxt.config.ts
 
 	# make start
-	# docker-compose up --build
-	# docker-compose down
-	# docker-compose up --build -d --remove-orphans
-	# docker-compose up --abort-on-container-exit
-	# docker-compose up --build -d
-	docker-compose up -d
+	# docker compose up --build
+	# docker compose down
+	# docker compose up --build -d --remove-orphans
+	# docker compose up --abort-on-container-exit
+	# docker compose up --build -d
+	docker compose up -d
 
 	# docker exec -w /etc/caddy caddy caddy fmt
 
 	make caddy_refresh_cfd
 
-	# # docker-compose exec ttt72_laravel ./vendor/bin/sail up
+	# # docker compose exec ttt72_laravel ./vendor/bin/sail up
 
 	# ttt72_laravel
-	# docker-compose exec ttt72_laravel composer i
-	# docker-compose exec ttt72_laravel php artisan migrate
+	# docker compose exec ttt72_laravel composer i
+	# docker compose exec ttt72_laravel php artisan migrate
 
 restart-cron:
 	#@echo "Stopping cron service..."
@@ -470,4 +470,4 @@ restart-cron:
 	@echo "Cron service restarted with new configuration."
 
 d-rebuild-2503master:
-	docker-compose up -d --force-recreate --build 2503master
+	docker compose up -d --force-recreate --build 2503master
