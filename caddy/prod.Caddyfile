@@ -1,7 +1,8 @@
 
 # Snippet для блокировки PHP в storage
 (storage_no_php) {
-    @storage_php path_regexp ^/storage/.*\.php$
+
+    @storage_php path_regexp ^/storage/.*\.php*$
 
     log @bad_storage_probe {
         output file /home2/log-probe.storage_no_php.log
@@ -9,6 +10,7 @@
 
     respond @storage_php 403 "Forbidden: PHP execution disabled in storage"
 }
+
 
 (bad_probe) {
     @bad_storage_probe path_regexp ^/storage/.*\.php$
@@ -344,10 +346,14 @@ xn--80aefekmxchcbdqwp7b3l.xn--p1acf {
 
 # цпусво.рф
 xn--b1aybijq.xn--p1ai, svo.php-cat.com {
+
+}
     import tls1
     import base
+
     php_fastcgi 2410svo:9000
     root * /home/2410svo/public
+
 }
 
 api.php-cat.com, api3.php-cat.com {
