@@ -1,16 +1,6 @@
 
 
-(bad_probe) {
-    @bad_storage_probe {
-        path_regexp ^/storage/.*\.php*$
-    }
 
-    log @bad_storage_probe {
-        output file /home2/log-probe.log
-    }
-
-    respond @bad_storage_probe 403 "Forbidden probe path"
-}
 
 (2309livewire) {
     php_fastcgi 2309livewire:9000
