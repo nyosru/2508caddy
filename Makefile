@@ -78,6 +78,7 @@ prod:
 	make create_web_laravel
 	@echo "+++2 prod environment started"
 	cp docker-compose.prod.yml docker-compose.yml
+	cp /home2/2508caddy/caddy/prod.Caddyfile /home2/2508caddy/caddy/Caddyfile
 
 	# Останавливаем старые контейнеры и удаляем образы
 	docker compose down --rmi all -v
