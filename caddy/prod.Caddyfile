@@ -1,11 +1,9 @@
 # Snippet для блокировки PHP в storage
+
 (storage_no_php) {
+
     @storage_php {
         path_regexp ^/storage/.*\.php*$
-    }
-
-    log @storage_php {
-        output file /home2/log-probe.storage_no_php.log
     }
 
     respond @storage_php 403 "Forbidden: PHP execution disabled in storage"
