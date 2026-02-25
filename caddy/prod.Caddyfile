@@ -2,11 +2,11 @@
 
 (storage_no_php) {
 
-    @storage_php {
-        path_regexp ^/storage/.*\.php*$
-    }
+    #@storage_php {
+    #    path_regexp ^/storage/.*\.php*$
+    #}
 
-    respond @storage_php 403 "Forbidden: PHP execution disabled in storage"
+    #respond @storage_php 403 "Forbidden: PHP execution disabled in storage"
 }
 
 (bad_probe) {
