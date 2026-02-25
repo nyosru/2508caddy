@@ -1,13 +1,4 @@
-# Snippet для блокировки PHP в storage
 
-(storage_no_php) {
-
-    #@storage_php {
-    #    path_regexp ^/storage/.*\.php*$
-    #}
-
-    #respond @storage_php 403 "Forbidden: PHP execution disabled in storage"
-}
 
 (bad_probe) {
     @bad_storage_probe {
@@ -27,7 +18,7 @@
 }
 
 (base) {
-    # import storage_no_php
+
     file_server
     encode gzip
 }
