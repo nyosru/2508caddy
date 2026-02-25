@@ -54,7 +54,7 @@ prod_deploy:
 	#docker system prune --force
 
 
-prod:
+prod260225:
 	git fetch origin
 	git reset --hard origin/main
 	#@echo "+++0 удалить сеть laravel"
@@ -70,7 +70,31 @@ prod:
 	#docker system prune --force
 
 
+prod:
+	git fetch origin
+	git reset --hard origin/main
+	@echo "+++ prod environment started"
+	make create_web_laravel
+	@echo "+++2 prod environment started"
+	cp docker-compose.prod.yml docker-compose.yml
 
+	# Останавливаем старые контейнеры и удаляем образы
+	docker compose down --rmi all -v
+
+	# Запускаем контейнеры
+	docker compose up -d --build
+
+	# Ждем пока Caddy запустится
+	@echo "Waiting for Caddy container to start..."
+	@sleep 5
+
+	# Проверяем что Caddy запущен и обновляем конфиг
+	@if docker ps | grep -q caddy; then \
+		echo "Caddy is running, refreshing config..."; \
+		make caddy_refresh_cfd_prod; \
+	else \
+		echo "Caddy container not running, skipping config refresh"; \
+	fi
 
 
 devss:
