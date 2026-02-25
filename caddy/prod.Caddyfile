@@ -27,7 +27,7 @@
 }
 
 (base) {
-    import storage_no_php
+    # import storage_no_php
     file_server
     encode gzip
 }
