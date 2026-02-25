@@ -60,7 +60,7 @@ jobs:
             git fetch --all
             git reset --hard ${{ env.GIT_BRANCH }}
             echo "✅ Код успешно обновлен"
-            cp caddy/prod.Caddyfile caddy/Caddyfile
+            cp /home2/2508caddy/caddy/prod.Caddyfile /home2/2508caddy/caddy/Caddyfile
             echo "🔄 Перезагружаем Caddy..."
             docker compose exec -T ${{ env.DOCKER_CONTAINER }} caddy reload --config /etc/caddy/Caddyfile           
             echo "✅✅ Caddy перезагружен без downtime"
