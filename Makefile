@@ -73,6 +73,7 @@ prod260225:
 prod:
 	git fetch origin
 	git reset --hard origin/main
+
 	@echo "+++ prod environment started"
 	make create_web_laravel
 	@echo "+++2 prod environment started"
