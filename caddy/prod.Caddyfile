@@ -75,6 +75,30 @@
     encode gzip
 }
 
+
+
+
+
+
+
+
+bu72.ru, xn--72-9kc6e.xn--p1ai {
+    import tls1
+    import base
+    php_fastcgi 2208bu:9000
+    root * /home/2208bu/public
+}
+
+
+
+
+
+
+
+
+
+
+
 laravel-test.php-cat.com, laravel.test.php-cat.com, laravel.test.php-cat.ru {
     import tls1
     import base
@@ -244,13 +268,6 @@ xn--80aefekmxchcbdqwp7b3l.xn--p1acf {
     root * /home/base12narek/public
 }
 
-
-bu72.ru, xn--72-9kc6e.xn--p1ai {
-    import tls1
-    import base
-    php_fastcgi 2208bu:9000
-    root * /home/2208bu/public
-}
 
 
 xn--b1aybijq.xn--p1ai, svo.php-cat.com {
