@@ -13,9 +13,21 @@ dev:
 	@echo "Development environment started"
 	make create_web_laravel
 	cp caddy/dev.Caddyfile caddy/Caddyfile
-	cp docker compose.local.yml docker compose.yml
-	docker compose up -d --remove-orphans
-	make caddy_refresh_cfd
+	cp docker-compose.local.yml docker-compose.yml
+	docker compose up --build -d --remove-orphans
+
+	# Ждем пока Caddy запустится
+	@echo "Waiting for Caddy container to start..."
+	@sleep 1
+
+	# Проверяем что Caddy запущен и обновляем конфиг
+	@if docker ps | grep -q caddy; then \
+		echo "Caddy is running, refreshing config..."; \
+		make caddy_refresh_cfd \
+	else \
+		echo "Caddy container not running, skipping config refresh"; \
+	fi
+
 
 caddy_refresh_cfd:
 	cp caddy/dev.Caddyfile caddy/Caddyfile
@@ -79,6 +91,7 @@ prod:
 	@echo "+++2 prod environment started"
 	cp docker-compose.prod.yml docker-compose.yml
 	cp /home2/2508caddy/caddy/prod.Caddyfile /home2/2508caddy/caddy/Caddyfile
+	cp caddy/prod.Caddyfile caddy/Caddyfile
 
 	# Останавливаем старые контейнеры и удаляем образы
 	docker compose down --rmi all -v

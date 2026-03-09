@@ -170,7 +170,7 @@ xn--80aba5c.xn--p1ai, xn--80aa7ar.xn--p1ai, xn--80agobarka9f6dc.xn--p1ai {
     import 2309livewire
 }
 
-xn--72-6kcqf0bya.xn--p1ai, xn--72-1lcufy.xn--p1ai, xn--72-9kc6e.xn--p1ai, xn--c1ajb7a.xn--p1ai {
+xn--72-6kcqf0bya.xn--p1ai, xn--72-1lcufy.xn--p1ai, xn--c1ajb7a.xn--p1ai {
     import tls1
     import base
     import 2309livewire
@@ -182,7 +182,7 @@ xn--90adfbu3bff.xn--p1ai, xn--80agoddredzph.xn--p1ai, xn--80aaekffdbzoyaif7amgl9
     import 2309livewire
 }
 
-bu72.ru, kprf72.ru {
+kprf72.ru {
     import tls1
     import base
     import 2309livewire
@@ -243,6 +243,15 @@ xn--80aefekmxchcbdqwp7b3l.xn--p1acf {
     php_fastcgi base12narek:9000
     root * /home/base12narek/public
 }
+
+
+bu72.ru, xn--72-9kc6e.xn--p1ai {
+    import tls1
+    import base
+    php_fastcgi 2208bu:9000
+    root * /home/2208bu/public
+}
+
 
 xn--b1aybijq.xn--p1ai, svo.php-cat.com {
     import tls1
