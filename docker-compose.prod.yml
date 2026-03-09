@@ -29,6 +29,9 @@ services:
       - './caddy/config:/config/'
       - './caddy/data-caddy:/data/'
 
+
+      - '${FOLDER_2208BU}:${FOLDER_2208BU_SERV}'
+
       # tests
       - '${FOLDER_2602LARAVEL_TEST}:${FOLDER_2602LARAVEL_TEST_SERV}'
       - '${FOLDER_SYMFONY2601}:${FOLDER_SYMFONY2601_SERV}'
