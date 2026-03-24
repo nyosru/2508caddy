@@ -85,8 +85,8 @@
 bu72.ru, xn--72-9kc6e.xn--p1ai {
     import tls1
     import base
-    php_fastcgi 2208bu:9000
     root * /home/2208bu/public
+    php_fastcgi 2208bu_site:9000
 }
 
 
