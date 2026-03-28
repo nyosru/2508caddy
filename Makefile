@@ -12,15 +12,20 @@ create_web_laravel:
 dev:
 	@echo "Development environment started"
 	make create_web_laravel
-	cp caddy/dev.Caddyfile caddy/Caddyfile
+	#---cp caddy/dev.Caddyfile caddy/Caddyfile
 	cp docker-compose.local.yml docker-compose.yml
 	docker compose up --build -d --remove-orphans
 
+	#++
+	#++
 	# Ждем пока Caddy запустится
 	@echo "Waiting for Caddy container to start..."
 	@sleep 1
 
 	# Проверяем что Caddy запущен и обновляем конфиг
+	#++
+	#++
+
 	@if docker ps | grep -q caddy; then \
 		echo "Caddy is running, refreshing config..."; \
 		make caddy_refresh_cfd \
@@ -59,7 +64,7 @@ prod_deploy:
 	make create_web_laravel
 	@echo "+++2 prod environment started"
 #	cp caddy/prod.Caddyfile caddy/Caddyfile
-	cp docker compose.prod.yml docker compose.yml
+	cp docker-compose.prod.yml docker-compose.yml
 	docker compose down --rmi all -v
 	docker compose up -d --build
 	#make caddy_refresh_cfd_prod

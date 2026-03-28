@@ -281,7 +281,7 @@ api.php-cat.com, api3.php-cat.com {
     import tls1
     import base
     php_fastcgi site_api:9000
-    root * /home/site_api
+    root * /home/site_api/public
 }
 
 upr.php-cat.com {
