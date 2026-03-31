@@ -12,8 +12,6 @@ volumes:
 
 services:
 
-
-
   caddy:
     container_name: caddy
     image: caddy:latest
@@ -31,6 +29,7 @@ services:
 
 
       - '${FOLDER_2208BU}:${FOLDER_2208BU_SERV}'
+      - '${FOLDER_2208BU_DEV}:${FOLDER_2208BU_DEV_SERV}'
 
       # tests
       - '${FOLDER_2602LARAVEL_TEST}:${FOLDER_2602LARAVEL_TEST_SERV}'
