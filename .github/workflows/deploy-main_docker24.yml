@@ -73,10 +73,11 @@ jobs:
             docker compose exec -T ${{ env.DOCKER_CONTAINER }} caddy reload --config /etc/caddy/Caddyfile           
             echo "✅✅ Caddy перезагружен без downtime"
 
-#            cp docker-compose.prod.yml docker-compose.yml
-#            docker-compose down --rmi all -v
-#            docker-compose up -d --build
-#            echo "✅✅ контейнер перезагружен"
+            cp docker-compose.prod.yml docker-compose.yml
+            docker-compose down --rmi all -v
+            docker-compose up -d --build
+            echo "✅✅ контейнер перезагружен"
+
 # Перезагружаем конфиг Caddy
 #  update_laravel:
 #    runs-on: ubuntu-latest

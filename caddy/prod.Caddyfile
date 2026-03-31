@@ -90,6 +90,14 @@ bu72.ru, xn--72-9kc6e.xn--p1ai {
 }
 
 
+dev.bu72.ru {
+    import tls1
+    import base
+    root * /home/2208bu_dev/public
+    php_fastcgi 2208bu_site_dev:9000
+}
+
+
 
 
 
@@ -299,7 +307,9 @@ vue3.php-cat.ru {
     try_files {path} {path}/ /index.html
 }
 
-xn--f1aeeb2as.xn--90adfbu3bff.xn--p1ai, domainwaiter.com {
+# xn--f1aeeb2as.xn--90adfbu3bff.xn--p1ai, domainwaiter.com {
+# кружки.сергейсб.рф
+xn--f1aeeb2as.xn--90adfbu3bff.xn--p1ai {
     import tls1
     import base
     php_fastcgi 2308beget:9000
