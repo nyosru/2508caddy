@@ -121,9 +121,15 @@ logistic.laravel.test.php-cat.com {
     root * /home/2603test_logistic/public
 }
 
+symfony.test.php-cat.com {
+	import base
+	root * /home/2604symfony_test/public
+	php_fastcgi 2604symfony_test:9000
+}
 
 
-symfony-test.php-cat.com, symfony.test.php-cat.com, symfony.test.php-cat.ru {
+
+symfony-test.php-cat.com, symfony.test.php-cat.ru {
     import tls1
     import base
     php_fastcgi symfony2601:9000
