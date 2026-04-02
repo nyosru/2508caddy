@@ -107,12 +107,21 @@ dev.bu72.ru {
 
 
 
-laravel-test.php-cat.com, laravel.test.php-cat.com, laravel.test.php-cat.ru {
+laravel.test.php-cat.com {
     import tls1
     import base
     php_fastcgi 2602test_laravel:9000
     root * /home/2602test_laravel/public
 }
+
+logistic.laravel.test.php-cat.com {
+    import tls1
+    import base
+    php_fastcgi 2603test_logistic:9000
+    root * /home/2603test_logistic/public
+}
+
+
 
 symfony-test.php-cat.com, symfony.test.php-cat.com, symfony.test.php-cat.ru {
     import tls1
