@@ -58,6 +58,8 @@ services:
 
       #proc-master
       - '${FOLDER_2503MASTER}:${FOLDER_2503MASTER_SERV}'
+      - '${FOLDER_2503MASTER_DEV}:${FOLDER_2503MASTER_DEV_SERV}'
+
       #test 2503sensor
       - '${FOLDER_2503SENSOR}:${FOLDER_2503SENSOR_SERV}'
       #uber
