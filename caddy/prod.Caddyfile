@@ -383,6 +383,7 @@ xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-c
 
 
 master.test.php-cat.com {
+
     request_body {
         max_size 100MB
     }
@@ -391,6 +392,8 @@ master.test.php-cat.com {
     import base
     php_fastcgi 2503master_dev:9000
     root * /home/2503master_dev/public
+
+    try_files {path} {path}/ /index.php?{query}
 
     @showtext path /phpcat
     respond @showtext "master.test.php-cat.com"
