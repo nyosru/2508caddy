@@ -165,6 +165,9 @@ p.php-cat.com {
     }
 }
 
+
+
+
 xn--j1aifffg.xn--p1ai, krostu.com {
     tls support@php-cat.com
     import base
@@ -175,6 +178,9 @@ www.krostu.com {
     tls support@php-cat.com
     redir https://krostu.com{uri} 301
 }
+
+
+
 
 cfa.php-cat.com, cfa-center.ru {
     import tls1
@@ -359,6 +365,8 @@ u.php-cat.com {
     root * /home_uber/uber-tele/public
 }
 
+
+
 xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-cat.ru {
     request_body {
         max_size 100MB
@@ -372,6 +380,24 @@ xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-c
     @showtext path /phpcat
     respond @showtext "домены xn--80ajb0aifhffacm9b.xn--p1ai, xn--80ae1ambgeod9j.xn--p1ai, processmaster.php-cat.ru "
 }
+
+
+master.test.php-cat.com {
+    request_body {
+        max_size 100MB
+    }
+
+    import tls1
+    import base
+    php_fastcgi 2503master_dev:9000
+    root * /home/2503master_dev/public
+
+    @showtext path /phpcat
+    respond @showtext "master.test.php-cat.com"
+}
+
+
+
 
 test-sensor.php-cat.com {
     tls 1@php-cat.com
