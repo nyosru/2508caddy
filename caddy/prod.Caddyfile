@@ -167,6 +167,13 @@ p.php-cat.com {
 
 
 
+news.api.php-cat.ru {
+    tls support@php-cat.com
+    import base
+    import 2309livewire
+}
+
+
 
 xn--j1aifffg.xn--p1ai, krostu.com {
     tls support@php-cat.com
