@@ -75,11 +75,11 @@
     encode gzip
 }
 
-
-
-
-
-
+cups.php-cat.ru {
+    tls support@php-cat.com
+    import base
+    import 2309livewire
+}
 
 
 bu72.ru, xn--72-9kc6e.xn--p1ai {

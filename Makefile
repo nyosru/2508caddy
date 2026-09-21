@@ -3,11 +3,14 @@ remove-laravel-network:
 
 create_web_laravel:
 	@if ! docker network ls --format '{{.Name}}' | grep -w laravel > /dev/null; then \
+		echo " "; \
+		echo " "; \
 		echo "++ Creating Docker network laravel"; \
 		docker network create laravel; \
 	else \
 		echo "++00 Docker network laravel already exists"; \
 	fi
+	echo " ";
 
 dev:
 	@echo "Development environment started"
@@ -30,7 +33,11 @@ dev:
 		echo "Caddy is running, refreshing config..."; \
 		make caddy_refresh_cfd \
 	else \
+		echo ""; \
+		echo ""; \
 		echo "Caddy container not running, skipping config refresh"; \
+		echo ""; \
+		echo ""; \
 	fi
 
 
