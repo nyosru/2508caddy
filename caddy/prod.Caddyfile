@@ -75,6 +75,15 @@
     encode gzip
 }
 
+
+
+# катком.рф
+xn--80atbijw.xn--p1ai {
+    tls support@php-cat.com
+    import base
+    import 2309livewire
+}
+
 cups.php-cat.ru {
     tls support@php-cat.com
     import base
